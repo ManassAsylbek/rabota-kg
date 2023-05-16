@@ -4,7 +4,8 @@ import App from './App';
 import {BrowserRouter} from "react-router-dom";
 import {setupStore} from "./store/store";
 import {Provider} from "react-redux";
-import "./styles"
+import "./styles/index.scss"
+import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -20,3 +21,4 @@ root.render(
         </BrowserRouter>
     </React.StrictMode>
 );
+reportWebVitals();

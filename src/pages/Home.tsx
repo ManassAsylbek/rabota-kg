@@ -1,9 +1,10 @@
 import React from 'react';
+import SwiperVacancy from "../components/Swiper/SwiperVacancy";
 
 const Home = () => {
     return (
         <div>
-            Home
+            <SwiperVacancy/>
         </div>
     );
 };
