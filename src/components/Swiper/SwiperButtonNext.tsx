@@ -6,7 +6,7 @@ interface ISwiperButtonNext{
 
 const SwiperButtonNext:FC<ISwiperButtonNext> = ({ children }) => {
     const swiper = useSwiper();
-    return <div onClick={() => swiper.slideNext()}>{children}</div>;
+    return <div className={"swiperButtonWrapper__next"} onClick={() => swiper.slideNext()}>{children}</div>;
 };
 
 export default SwiperButtonNext;

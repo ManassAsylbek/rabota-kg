@@ -27,10 +27,9 @@ const SwiperVacancy = () => {
                 <SwiperSlide>Slide 7</SwiperSlide>
                 <SwiperSlide>Slide 8</SwiperSlide>
                 <SwiperSlide>Slide 9</SwiperSlide>
-                <div className={"swiperButton" +
-                    ""}>
-                    <SwiperButtonPrev><img src={prev} alt=""/></SwiperButtonPrev>
-                    <SwiperButtonNext><img src={next} alt=""/></SwiperButtonNext>
+                <div className={"swiperButtonWrapper"}>
+                    <SwiperButtonPrev ><img src={prev} alt=""/></SwiperButtonPrev>
+                    <SwiperButtonNext ><img src={next} alt=""/></SwiperButtonNext>
                 </div>
             </Swiper>
         </div>
