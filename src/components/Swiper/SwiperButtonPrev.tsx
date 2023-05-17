@@ -6,6 +6,6 @@ interface SwiperButtonPrev{
 
 const SwiperButtonPrev:FC<SwiperButtonPrev> = ({ children }) => {
     const swiper = useSwiper();
-    return <div className={"swiperButtonWrapper__prev"} onClick={() => swiper.slidePrev()}>{children}</div>;
+    return <div className={"swiperButtonWrapper__button"} onClick={() => swiper.slidePrev()}>{children}</div>;
 };
 export default SwiperButtonPrev;
