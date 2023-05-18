@@ -1,0 +1,36 @@
+.vacancies {
+  margin-top: 100px;
+}
+
+.vacancies-body {
+  &-title {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 40px;
+    line-height: 48px;
+    color: #002757;
+    margin-bottom: 50px;
+  }
+
+  &-list {
+    list-style-type: none;
+
+    &-item {
+
+      .item-text {
+        border-bottom: 1px solid black;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 32px;
+
+        .item-link {
+          color: #000000;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

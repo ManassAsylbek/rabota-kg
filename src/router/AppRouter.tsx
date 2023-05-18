@@ -8,7 +8,7 @@ import {routerType} from "../interfaces/routerType";
 const pagesData: routerType[] = [
     {
         path: "",
-        element: <Home />,
+        element: <Home/>,
         title: "home"
     },
 ];
