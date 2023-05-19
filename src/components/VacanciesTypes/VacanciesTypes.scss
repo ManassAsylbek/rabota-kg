@@ -22,13 +22,16 @@
         border-bottom: 1px solid black;
         font-family: 'Inter';
         font-style: normal;
-        font-weight: 400;
+        font-weight: 500;
         font-size: 20px;
         line-height: 32px;
 
         .item-link {
-          color: #000000;
+          color: #303233;
           text-decoration: none;
+        }
+        .item-link:hover {
+          color: #000;
         }
       }
     }

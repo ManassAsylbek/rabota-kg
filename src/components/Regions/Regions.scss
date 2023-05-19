@@ -26,6 +26,7 @@
     background: #DA6100;
     border-radius: 10px;
     cursor: pointer;
+    transition: 0.3s;
     .item-text {
       font-family: 'Inter';
       font-style: normal;
@@ -35,7 +36,12 @@
       color: white;
 
     }
+    &:hover{
+      box-shadow: 0 0 10px 0 #DA6100;
+      transition: 0.3s;
+    }
   }
+
 }
 
 @media (max-width: 1024px) {
