@@ -18,8 +18,8 @@ const Header=()=>{
             </div>
             <div className="header__main">
                 <div className="header__search">
-                     <input type="search" />
-                     <img src={SearchIcon} alt="search-icon" />
+                    <input type="search" />
+                    <img src={SearchIcon} alt="search-icon" />
                 </div>
                 <button className='header__button'>
                     <span>Подать рекламу</span>

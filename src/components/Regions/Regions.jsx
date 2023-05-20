@@ -8,7 +8,7 @@ const Regions = () => {
         <section className="regions">
             <div className="container">
                 <div className="regions-title">
-                    РЕГИОНЫ
+                    Регионы
                 </div>
                 <ul className="regions-items">
                     <li className="region-item">
