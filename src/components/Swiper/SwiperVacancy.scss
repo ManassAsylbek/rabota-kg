@@ -12,7 +12,17 @@
   margin: 20px 0;
 }
 
+.topVacancyTitle{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 45px;
+  line-height: 54px;
+  text-align: center;
+  color: #002757;
+  margin: 100px 0;
 
+}
 
 .swiper-slide {
   text-align: left;
@@ -38,11 +48,16 @@
 
 .swiper-pagination {
   bottom: var(--swiper-pagination-bottom, auto)!important;
-  top: var(--swiper-pagination-top, 8px)!important;
+  top: var(--swiper-pagination-top, 4px)!important;
   display: flex;
-  padding: 0 200px;
-  justify-content: space-evenly;
+  padding: 0 250px;
+  justify-content: space-between;
+
+  @media (max-width: 1024px) {
+    padding: 0 100px;
+  }
 }
+
 
 .swiper-pagination-bullet {
   width: calc(var(--index) * 2);
@@ -58,21 +73,24 @@
   align-items: center;
   justify-content: center;
   transition: 0.3s;
-
+  margin: 0 10px;
 }
 
 .swiper-pagination-bullet-active {
   color: #fff;
   transition: 0.3s;
+  transform: scale(1.2);
 }
 
 .mySwiper {
   display: flex;
   justify-content: center;
+  min-height: 400px;
 
   &__slide {
     width: 100%;
     padding-top: calc(var(--index) * 3.4);
+    transition: 0.5s;
   }
 
   &__box {
@@ -122,12 +140,12 @@
     align-items: center;
     .mySwiper__buttonMore{
       //margin-top: calc(var(--index) * 1);;
-      width:calc(var(--index) * 10);
+      width:calc(var(--index) * 5);
       font-family: 'Inter';
       font-style: normal;
       font-weight: 700;
-      font-size: calc(var(--index) * 0.9);
-      line-height: calc(var(--index) * 1.7);
+      font-size: calc(var(--index) * 0.7);
+      line-height: calc(var(--index) * 1.5);
       background: linear-gradient(180deg, #FFFFFF 0%, #514E4C 100%);
       border-radius: 5px;
       border: none;
@@ -196,7 +214,20 @@
       }
 
     }
-
+    @media (max-width: 768px) {
+      width: 40px;
+      height: 40px;
+    }
+    @media (max-width: 480px) {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  @media (max-width: 1024px) {
+    top: 80px;
+  }
+  @media (max-width: 480px) {
+    top: 60px;
   }
 }
 

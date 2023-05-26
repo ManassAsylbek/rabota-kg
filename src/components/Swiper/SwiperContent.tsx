@@ -12,9 +12,6 @@ interface ISwipercontent {
 
 const SwiperContent: React.FC<ISwipercontent> = ({more, setMore}) => {
 
-    /*const [ more, setMore ] = useContext(SwiperContext)*/
-
-
     return (
         <div className={"mySwiper__box"}>
             <div className={"mySwiper__date"}>05.05.2020 / 11 минут назад / Бишкек</div>

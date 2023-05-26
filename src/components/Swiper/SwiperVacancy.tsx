@@ -30,35 +30,40 @@ const SwiperVacancy = () => {
     };
 
     return (
-        <div className="container">
-            <Swiper pagination={pagination} className="mySwiper"
-                    modules={[Pagination, Navigation, Mousewheel, Keyboard]}>
-                <SwiperSlide className={"mySwiper__slide"}>
-                    <SwiperContent more={more} setMore={setMore}/>
-                </SwiperSlide>
-                <SwiperSlide className={"mySwiper__slide"}>
-                    <SwiperContent more={more} setMore={setMore}/>
-                </SwiperSlide>
-                <SwiperSlide className={"mySwiper__slide"}>
-                    <SwiperContent more={more} setMore={setMore}/>
-                </SwiperSlide>
-                <SwiperSlide className={"mySwiper__slide"}>
-                    <SwiperContent more={more} setMore={setMore}/>
-                </SwiperSlide>
-                <SwiperSlide className={"mySwiper__slide"}>
-                    <SwiperContent more={more} setMore={setMore}/>
-                </SwiperSlide>
-                <SwiperSlide className={"mySwiper__slide"}>
-                    <SwiperContent more={more} setMore={setMore}/>
-                </SwiperSlide>
-
-                <div className={"swiperButtonWrapper"}>
-                    <SwiperButtonPrev more={more} setMore={setMore}><img src={prev} alt=""/></SwiperButtonPrev>
-                    <SwiperButtonNext more={more} setMore={setMore}><img src={next} alt=""/></SwiperButtonNext>
+        <section className="topVacancy">
+            <div className="container">
+                <div className="topVacancyTitle">
+                    ТОП ВАКАНСИИ
                 </div>
-            </Swiper>
+                <Swiper pagination={pagination} className="mySwiper"
+                        modules={[Pagination, Navigation, Mousewheel, Keyboard]}>
+                    <SwiperSlide className={"mySwiper__slide"}>
+                        <SwiperContent more={more} setMore={setMore}/>
+                    </SwiperSlide>
+                    <SwiperSlide className={"mySwiper__slide"}>
+                        <SwiperContent more={more} setMore={setMore}/>
+                    </SwiperSlide>
+                    <SwiperSlide className={"mySwiper__slide"}>
+                        <SwiperContent more={more} setMore={setMore}/>
+                    </SwiperSlide>
+                    <SwiperSlide className={"mySwiper__slide"}>
+                        <SwiperContent more={more} setMore={setMore}/>
+                    </SwiperSlide>
+                    <SwiperSlide className={"mySwiper__slide"}>
+                        <SwiperContent more={more} setMore={setMore}/>
+                    </SwiperSlide>
+                    <SwiperSlide className={"mySwiper__slide"}>
+                        <SwiperContent more={more} setMore={setMore}/>
+                    </SwiperSlide>
 
-        </div>
+                    <div className={"swiperButtonWrapper"}>
+                        <SwiperButtonPrev more={more} setMore={setMore}><img src={prev} alt=""/></SwiperButtonPrev>
+                        <SwiperButtonNext more={more} setMore={setMore}><img src={next} alt=""/></SwiperButtonNext>
+                    </div>
+                </Swiper>
+
+            </div>
+        </section>
     );
 };
 

@@ -2,6 +2,7 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
 import {routerType} from "../interfaces/routerType";
+import Vacancies from "../pages/Vacancies";
 
 
 
@@ -10,6 +11,11 @@ const pagesData: routerType[] = [
         path: "",
         element: <Home/>,
         title: "home"
+    },
+    {
+        path: "/vacancies",
+        element: <Vacancies/>,
+        title: "vacancies"
     },
 ];
 

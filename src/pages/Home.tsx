@@ -8,11 +8,9 @@ import Footer from "../components/Footer/Footer";
 const Home = () => {
     return (
         <>
-            <Header/>
             <SwiperVacancy/>
             <VacanciesTypes/>
             <Regions/>
-            <Footer/>
         </>
     );
 };
