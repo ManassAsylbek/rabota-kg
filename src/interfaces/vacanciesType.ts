@@ -18,6 +18,13 @@ export interface IVacancyCategory {
     title: string;
 }
 
+export interface IRegion {
+    "title": {
+        "id": number,
+        "region":string
+    }
+}
+
 export interface vacancyType {
     "id": number,
     "vacancy_category": {

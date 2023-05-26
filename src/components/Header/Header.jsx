@@ -9,16 +9,17 @@ const Header = () => {
     const [value, setValue] = useState("")
 
     const debounced = useDebounce(value)
+    const navigate = useNavigate()
 
     useEffect(() => {
         console.log(debounced)
 
     }, [debounced])
 
-    const navigate = useNavigate()
+
 
     const handleSubmit = () => {
-        navigate(`/vacancies/`)
+        navigate(`/vacancies/${debounced}`)
     }
 
     return (
