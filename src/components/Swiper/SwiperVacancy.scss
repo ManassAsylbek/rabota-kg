@@ -187,7 +187,7 @@
 .swiperButtonWrapper {
   width: 100%;
   position: absolute;
-  top: 150px;
+  top: calc(var(--index) * 7);;
   display: flex;
   justify-content: space-between;
   z-index: 100;

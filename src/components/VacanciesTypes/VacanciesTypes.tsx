@@ -3,8 +3,11 @@ import React from 'react';
 
 import "./VacanciesTypes.scss"
 import "../../styles/index.scss"
+import {useFetchVacancyCategoryQuery} from "../../sevices/vacancyCategoryServices";
 
 const VacanciesTypes = () => {
+    const {data: category = [], error, isLoading} = useFetchVacancyCategoryQuery()
+
     return (
         <section className="vacancies">
             <div className="container">
@@ -13,7 +16,18 @@ const VacanciesTypes = () => {
                         Виды вакансии Бишкек
                     </div>
                     <ul className="vacancies-body-list">
-                        <li className="vacancies-body-list-item">
+                        {
+                            category && category.map(item => (
+                                <li className="vacancies-body-list-item">
+                                    <span className="item-text">
+                                        <a href="" className="item-link">
+                                        {item.title}
+                                        </a>
+                                    </span>
+                                </li>
+                            ))
+                        }
+                        {/*<li className="vacancies-body-list-item">
                             <span className="item-text">
                                 <a href="" className="item-link">
                                     Продажи, обслуживание клиентов
@@ -92,7 +106,7 @@ const VacanciesTypes = () => {
                                     Страхование
                                 </a>
                             </span>
-                        </li>
+                        </li>*/}
                     </ul>
                 </div>
             </div>

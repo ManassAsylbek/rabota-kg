@@ -1,6 +1,6 @@
 import { useSwiper } from "swiper/react";
-import {FC, ReactNode, useContext} from "react";
-import {SwiperContext} from "./SwiperVacancy";
+import {FC, ReactNode} from "react";
+
 interface SwiperButtonPrev{
     children: ReactNode;
     more:boolean,

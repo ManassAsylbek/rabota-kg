@@ -1,23 +1,30 @@
-import React, {useState, useContext} from 'react';
-import {SwiperContext} from "./SwiperVacancy";
+import React from 'react';
+import { format, formatDistance, formatRelative, subDays } from 'date-fns'
 
 import watchers from "../../assets/icons/whatchers.png"
+
 import like from "../../assets/icons/like.png"
+import {vacancyType} from "../../interfaces";
 
 
-interface ISwipercontent {
+interface ISwiperContent {
     more: boolean,
-    setMore: (arg: boolean) => void
+    setMore: (arg: boolean) => void,
+    vacancy:vacancyType
 }
 
-const SwiperContent: React.FC<ISwipercontent> = ({more, setMore}) => {
+
+
+const SwiperContent: React.FC<ISwiperContent> = ({vacancy,more, setMore}) => {
+    const formattedDate = format(new Date(vacancy.published_at), 'dd.MM.yyyy');
+    const distanceDate = formatDistance(new Date(vacancy.published_at), new Date(), { addSuffix: true })
 
     return (
         <div className={"mySwiper__box"}>
-            <div className={"mySwiper__date"}>05.05.2020 / 11 минут назад / Бишкек</div>
-            <div className={"mySwiper__title"}>Менеджер по продажам</div>
-            <div className={"mySwiper__title"}>30 000 - 35 000 сом</div>
-            <div className={"mySwiper__title"}>ТЦ Караван</div>
+            <div className={"mySwiper__date"}>{formattedDate}/ {distanceDate} / {vacancy.region.title}</div>
+            <div className={"mySwiper__title"}>{vacancy.job_title}</div>
+            <div className={"mySwiper__title"}>{vacancy.salary}</div>
+            <div className={"mySwiper__title"}>{vacancy.address}</div>
 
             {!more &&
                 <div className="swiperBtnIcons">
@@ -27,7 +34,7 @@ const SwiperContent: React.FC<ISwipercontent> = ({more, setMore}) => {
                             <div className="icon">
                                 <img src={watchers} alt=""/>
                             </div>
-                            <span>20</span>
+                            <span>{vacancy.views_count}</span>
                         </div>
                         <div className="likes">
                             <div className="icon">
@@ -40,32 +47,15 @@ const SwiperContent: React.FC<ISwipercontent> = ({more, setMore}) => {
             }
             {more &&
                 <div>
-                    <div className={"mySwiper__text margin"}>"Жылдыз академиясы" ищет кандидата на должность
-                        SMM-специалиста и контент-менеджера. Мы ищем заинтересованных кандидатов в возрасте от 18 до
-                        25 лет, имеющих опыт работы в EdTech или интересующихся этой областью.
+                    <div className={"mySwiper__text margin"}>{vacancy.description}
                     </div>
                     <div className={"mySwiper__title margin"}>Требования:</div>
                     <ul className={"mySwiper__text"}>
-                        <li>Знание кыргызского и русского языков, знание английского является преимуществом.</li>
-                        <li>Опыт работы не менее 1 года.</li>
-                        <li>Знание стиля визуала и маркетинговых трендов. Обязанности:</li>
-                        <li>Создание и управление контент</li>
-                        <li>планом для наших социальных медиа;</li>
-                        <li>Анализ и отчетность о нашей продукции в социальных медиа;</li>
-                        <li>Организация контента в социальных медиа и работа с таргетологами,
-                            менеджерами продаж и графическими дизайнерами;
-                        </li>
-                        <li>Написание и редактирование текстов на кыргызском.</li>
+                        {vacancy.requirements}
                     </ul>
                     <div className={"mySwiper__title margin"}>Обязанности:
                         <ul className={"mySwiper__text"}>
-                            <li>Создание и управление контент</li>
-                            <li>планом для наших социальных медиа</li>
-                            <li>Анализ и отчетность о нашей продукции в социальных медиа</li>
-                            <li>Организация контента в социальных медиа и работа с таргетологами, менеджерами продаж и
-                                графическими дизайнерами;
-                            </li>
-                            <li>Написание и редактирование текстов на кыргызском</li>
+                            {vacancy.responsibilities}
                         </ul>
                     </div>
                 </div>
@@ -79,7 +69,7 @@ const SwiperContent: React.FC<ISwipercontent> = ({more, setMore}) => {
                             <div className="icon">
                                 <img src={watchers} alt=""/>
                             </div>
-                            <span>20</span>
+                            <span>{vacancy.views_count}</span>
                         </div>
                         <div className="likes">
                             <div className="icon">

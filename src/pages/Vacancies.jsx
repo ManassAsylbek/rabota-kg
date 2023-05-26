@@ -6,7 +6,6 @@ const Vacancies = () => {
     return (
         <>
             <FoundVacancies/>
-
         </>
     );
 };

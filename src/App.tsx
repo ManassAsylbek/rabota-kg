@@ -1,17 +1,12 @@
 import React, {createContext, useState} from 'react';
 import AppRouter from "./router/AppRouter";
-import Footer from "./components/Footer/Footer";
-import Header from "./components/Header/Header";
-
+import Layout from "./components/Layout/Layout";
 
 function App() {
-
     return (
-        <>
-            <Header/>
+        <Layout>
             <AppRouter/>
-            <Footer/>
-        </>
+        </Layout>
     );
 }
 
