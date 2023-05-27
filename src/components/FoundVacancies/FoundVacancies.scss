@@ -2,8 +2,7 @@ $font-family_1: arial;
 $border-color_1: #7b7b7b;
 
 
-
-.foundVacanciesTitle{
+.foundVacanciesTitle {
   margin-top: 40px;
   font-family: 'Inter';
   font-style: normal;
@@ -12,33 +11,37 @@ $border-color_1: #7b7b7b;
   line-height: 54px;
   color: #000000;
 }
-.titleLine{
+
+.titleLine {
   margin-top: 30px;
 }
 
-.vacanciesSidebar{
+.vacanciesSidebar {
   margin-top: 50px;
   margin-bottom: 70px;
   display: flex;
 
-  .vacanciesSidebarFilter{
+  .vacanciesSidebarFilter {
     width: 25%;
 
-    .filter{
+
+    .filter {
+      margin-bottom: 40px;
       width: 250px;
       height: auto;
-      padding: 25px;
+      padding: 0 25px 20px;
       border: 2px solid #DEE2E6;
       box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1), 5px 3px 16px rgba(198, 198, 198, 0.31);
 
-      .filterTitle{
+      .filterTitle {
+        cursor: pointer;
         font-family: 'Inter';
         font-style: normal;
         font-weight: 600;
         font-size: 22px;
         line-height: 27px;
         color: #000000;
-        margin-bottom: 15px;
+        padding: 20px 0 0 0;
       }
 
       @keyframes s-ripple {
@@ -68,6 +71,7 @@ $border-color_1: #7b7b7b;
           transform: scale(1);
         }
       }
+
       .control {
         display: block;
         position: relative;
@@ -84,10 +88,12 @@ $border-color_1: #7b7b7b;
 
 
         color: #000;
+
         input {
           position: absolute;
           z-index: -1;
           opacity: 0;
+
           &:focus {
             ~ {
               .control_indicator {
@@ -95,17 +101,20 @@ $border-color_1: #7b7b7b;
               }
             }
           }
+
           &:checked {
             ~ {
               .control_indicator {
                 background: #000000;
+
                 &:after {
                   display: block;
                 }
               }
             }
-            ~~{
-              .control{
+
+            ~ ~ {
+              .control {
                 color: #000;
               }
             }
@@ -118,6 +127,7 @@ $border-color_1: #7b7b7b;
               }
             }
           }
+
           &:disabled {
             ~ {
               .control_indicator {
@@ -128,6 +138,7 @@ $border-color_1: #7b7b7b;
             }
           }
         }
+
         &:hover {
           input {
             ~ {
@@ -135,6 +146,7 @@ $border-color_1: #7b7b7b;
                 background: #cccccc;
               }
             }
+
             &:not([disabled]) {
               &:checked {
                 ~ {
@@ -147,6 +159,7 @@ $border-color_1: #7b7b7b;
           }
         }
       }
+
       .control_indicator {
         position: absolute;
         top: 2px;
@@ -156,6 +169,7 @@ $border-color_1: #7b7b7b;
         background: #e6e6e6;
         border: 0px solid #000000;
         border-radius: 6px;
+
         &:after {
           box-sizing: unset;
           content: '';
@@ -163,6 +177,7 @@ $border-color_1: #7b7b7b;
           display: none;
         }
       }
+
       .control-checkbox {
         .control_indicator {
           &:after {
@@ -174,6 +189,7 @@ $border-color_1: #7b7b7b;
             border-width: 0 2px 2px 0;
             transform: rotate(45deg);
           }
+
           &::before {
             content: '';
             display: block;
@@ -191,6 +207,7 @@ $border-color_1: #7b7b7b;
             transform: scale(0);
           }
         }
+
         input {
           &:disabled {
             ~ {
@@ -201,6 +218,7 @@ $border-color_1: #7b7b7b;
               }
             }
           }
+
           + {
             .control_indicator {
               &::before {
@@ -208,6 +226,7 @@ $border-color_1: #7b7b7b;
               }
             }
           }
+
           &:checked {
             + {
               .control_indicator {
@@ -219,24 +238,25 @@ $border-color_1: #7b7b7b;
           }
         }
       }
-      &:nth-child(2){
-        margin-top: 50px;
-      }
     }
   }
-  .vacanciesSidebarContent{
+
+  .vacanciesSidebarContent {
     width: 75%;
-    .vacanciesBox{
+
+    .vacanciesBox {
       padding: 20px 30px;
       border-left: 10px solid green;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       border-radius: 1px 10px 10px 1px;
-      .vacancyMainInfo{
+
+      .vacancyMainInfo {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        .vacancyInfo{
-          .vacancyDate{
+
+        .vacancyInfo {
+          .vacancyDate {
             font-family: 'Inter';
             font-style: normal;
             font-weight: 400;
@@ -244,7 +264,8 @@ $border-color_1: #7b7b7b;
             line-height: 16px;
             color: #AA6320;
           }
-          .vacancyTitle{
+
+          .vacancyTitle {
             margin-top: 10px;
             font-family: 'Inter';
             font-style: normal;
@@ -252,12 +273,14 @@ $border-color_1: #7b7b7b;
             font-size: 18px;
             line-height: 22px;
             color: #DA6100;
-            span{
+
+            span {
               font-weight: 500;
-              color: rgba(7,7,7,.702);
+              color: rgba(7, 7, 7, .702);
             }
           }
-          .vacancySalary{
+
+          .vacancySalary {
             margin-top: 10px;
             margin-bottom: 20px;
             font-family: 'Inter';
@@ -268,22 +291,26 @@ $border-color_1: #7b7b7b;
             color: #000000;
           }
         }
-        .vacancyImg{
-          .companyImage{
+
+        .vacancyImg {
+          .companyImage {
             width: 100px;
             height: 100px;
-            img{
+
+            img {
               width: 100%;
               height: 100%;
             }
           }
         }
       }
-      .vacancyBtnIcons{
+
+      .vacancyBtnIcons {
         display: flex;
         justify-content: space-between;
         margin-top: 20px;
-        .vacancyButtonMore{
+
+        .vacancyButtonMore {
           display: flex;
           justify-content: center;
           align-items: center;
@@ -297,29 +324,35 @@ $border-color_1: #7b7b7b;
           height: 42px;
           background: linear-gradient(0deg, #248714, #248714);
           border-radius: 5px;
-          &:hover{
+
+          &:hover {
             box-shadow: 0 0 9px 0 #248714;
           }
         }
-        .icons{
+
+        .icons {
           display: flex;
           width: 100px;
           justify-content: space-between;
           align-items: center;
-          .watch,.likes{
+
+          .watch, .likes {
             display: flex;
             align-items: center;
-            .icon{
+
+            .icon {
               width: 20px;
               height: 20px;
               display: flex;
               align-items: center;
-              img{
+
+              img {
                 width: 100%;
                 height: 100%;
               }
             }
-            span{
+
+            span {
               margin-left: 5px;
               font-family: 'Inter';
               font-style: normal;
@@ -332,7 +365,8 @@ $border-color_1: #7b7b7b;
         }
 
       }
-      .vacancyText{
+
+      .vacancyText {
         font-family: 'Inter';
         font-style: normal;
         font-weight: 500;
@@ -341,7 +375,8 @@ $border-color_1: #7b7b7b;
         color: #000000;
         margin-top: 20px;
       }
-      .vacancyTextTitle{
+
+      .vacancyTextTitle {
         margin-top: 20px;
       }
     }
