@@ -13,7 +13,7 @@ const pagesData: routerType[] = [
         element: <Home/>
     },
     {
-        path: "/vacancies/",
+        path: "/vacancies",
         element: <Vacancies/>,
         title: "vacancies"
     },

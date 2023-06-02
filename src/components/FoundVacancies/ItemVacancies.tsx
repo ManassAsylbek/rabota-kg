@@ -40,12 +40,6 @@ const ItemVacancies:FC<ItemVacancies> = ({data}) => {
                             onClick={() => setMore(true)}>Подробнее
                     </button>
                     <div className="icons">
-                        <button className="likes">
-                            <div className="icon">
-                                <img src={like} alt=""/>
-                            </div>
-                            <span>20</span>
-                        </button>
                         <button className="watch">
                             <div className="icon">
                                 <img src={watchers} alt=""/>
@@ -100,12 +94,6 @@ const ItemVacancies:FC<ItemVacancies> = ({data}) => {
                             onClick={() => setMore(false)}>Свернуть
                     </button>
                     <div className="icons">
-                        <button className="likes">
-                            <div className="icon">
-                                <img src={like} alt=""/>
-                            </div>
-                            <span>20</span>
-                        </button>
                         <button className="watch">
                             <div className="icon">
                                 <img src={watchers} alt=""/>

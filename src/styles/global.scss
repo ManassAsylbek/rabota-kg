@@ -6,17 +6,19 @@ body{
   font-family: 'Inter', sans-serif;
 }
 
+.container{
+  max-width: 1240px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
 .footer__container{
   max-width: 1180px;
   padding: 0 20px;
   margin: 0 auto;
   background: #fff;
 }
-.container{
-  max-width: 1240px;
-  padding: 0 20px;
-  margin: 0 auto;
-}
+
 @media (max-width: 1200px) {
   .container{
     max-width: 1025px;

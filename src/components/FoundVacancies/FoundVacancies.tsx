@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 
 import "./FoundVacancies.scss"
@@ -12,6 +12,7 @@ import {addCategory, addRegion} from "../../store/searchSlice";
 import {useFetchVacancyCategoryQuery} from "../../sevices/vacancyCategoryServices";
 
 const FoundVacancies = () => {
+    const [windowOpenFilter, setWindowOpenFilter] = useState(false)
     const {search} = useParams()
     const dispatch = useAppDispatch();
     const {region, category} = useAppSelector(state => state.searchSlice);
@@ -23,8 +24,20 @@ const FoundVacancies = () => {
     const [typeShow, setTypeShow] = useState(false)
 
 
+    console.log(search)
+
+    useEffect(() => {
+        const targetElement = document.getElementById('vacanciesScroll');
+        if (targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop,
+                behavior: 'smooth',
+            });
+        }
+    }, []);
+
     return (
-        <section className="foundVacancies">
+        <section className="foundVacancies" id="vacanciesScroll">
             <div className="container">
                 <div className="foundVacanciesTitle">
                     Найдено {vacancy ? vacancy.length : "0"} вакансии
@@ -34,6 +47,7 @@ const FoundVacancies = () => {
 
                 <div className="vacanciesSidebar">
                     <div className="vacanciesSidebarFilter">
+                        {windowOpenFilter ? "Фильтр" : ""}
                         <div className="filter">
                             <div className="filterTitle">
                                 Возраст

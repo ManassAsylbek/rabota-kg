@@ -1,5 +1,7 @@
 import React from 'react';
 import { format, formatDistance, formatRelative, subDays } from 'date-fns'
+import {ru} from 'date-fns/locale'
+
 
 import watchers from "../../assets/icons/whatchers.png"
 
@@ -17,7 +19,7 @@ interface ISwiperContent {
 
 const SwiperContent: React.FC<ISwiperContent> = ({vacancy,more, setMore}) => {
     const formattedDate = format(new Date(vacancy.published_at), 'dd.MM.yyyy');
-    const distanceDate = formatDistance(new Date(vacancy.published_at), new Date(), { addSuffix: true })
+    const distanceDate = formatDistance(new Date(vacancy.published_at), new Date(), { addSuffix: true, locale: ru} )
 
     return (
         <div className={"mySwiper__box"}>
@@ -36,12 +38,7 @@ const SwiperContent: React.FC<ISwiperContent> = ({vacancy,more, setMore}) => {
                             </div>
                             <span>{vacancy.views_count}</span>
                         </div>
-                        <div className="likes">
-                            <div className="icon">
-                                <img src={like} alt=""/>
-                            </div>
-                            <span>20</span>
-                        </div>
+
                     </div>
                 </div>
             }

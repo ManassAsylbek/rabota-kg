@@ -2,17 +2,27 @@ import React from 'react';
 
 
 import "./Regions.scss"
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {useGetRegionQuery} from "../../sevices/regionServices";
 import {useAppDispatch} from "../../hooks/redux";
-import {addRegion} from "../../store/searchSlice";
+import {addCategory, addRegion} from "../../store/searchSlice";
+import {serialize} from "../VacanciesTypes/VacanciesTypes";
 
 const Regions = () => {
     const dispatch = useAppDispatch();
     const {data:regions} = useGetRegionQuery()
+    const navigate = useNavigate()
+
+
 
     const setRegion = (region:string) => {
+        let params = {
+            city: region
+        }
+        let s = serialize(params)
         dispatch(addRegion(region));
+        navigate(`/vacancies`+ s)
+
     };
 
     return (
@@ -25,13 +35,13 @@ const Regions = () => {
                 <ul className="regions-items">
 
                     {
-                        regions && regions.map(item => <NavLink to={`/vacancies`}>
+                        regions && regions.map(item =>
                             <li className="region-item" onClick={()=>setRegion(item.title.region)}>
                                  <span className="item-text">
                                   {item.title.region}
                                  </span>
                             </li>
-                        </NavLink>)
+                        )
                     }
                 </ul>
             </div>
