@@ -86,7 +86,7 @@ const FoundVacancies = () => {
                             >
                                 {category}
                                 <input type="checkbox"
-                                       onClick={() => dispatch(addRegion(category))}
+                                       onClick={() => dispatch(addCategory(category))}
                                        checked={category !== ""}
                                        defaultValue={category}/>
                                 <div className="control_indicator"></div>

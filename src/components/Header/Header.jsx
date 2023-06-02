@@ -11,13 +11,6 @@ const Header = () => {
     const debounced = useDebounce(value)
     const navigate = useNavigate()
 
-    useEffect(() => {
-        console.log(debounced)
-
-    }, [debounced])
-
-
-
     const handleSubmit = () => {
         navigate(`/vacancies/${debounced}`)
     }
@@ -45,4 +38,4 @@ const Header = () => {
         </header>
     )
 }
-export default React.memo(Header);
+export default Header;
