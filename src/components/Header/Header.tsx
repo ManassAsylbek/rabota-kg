@@ -2,17 +2,21 @@ import React, {useContext, useEffect, useState} from 'react';
 import HeaderLogo from '../../assets/icons/headerlogo.svg';
 import './Header.scss';
 import './Header-media.scss';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import {useDebounce} from "../../hooks/debounce";
 
 const Header = () => {
     const [value, setValue] = useState("")
+    const [searchParams] = useSearchParams();
 
-    const debounced = useDebounce(value)
+    const debounced = useDebounce(value) || searchParams.get('search') || ''
     const navigate = useNavigate()
 
     const handleSubmit = () => {
-        navigate(`/vacancies/${debounced}`)
+        navigate({
+            pathname: '/vacancies',
+            search: `?search=${debounced}`
+    })
     }
 
     return (

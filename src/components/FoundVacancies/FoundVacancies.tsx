@@ -13,9 +13,9 @@ import {useFetchVacancyCategoryQuery} from "../../sevices/vacancyCategoryService
 
 const FoundVacancies = () => {
     const [windowOpenFilter, setWindowOpenFilter] = useState(false)
-    const {search} = useParams()
+    const {} = useParams()
     const dispatch = useAppDispatch();
-    const {region, category} = useAppSelector(state => state.searchSlice);
+    const {region, category,search} = useAppSelector(state => state.searchSlice);
     const {data: vacancy} = useFetchAllVacancyQuery({search: search, vacancy_category: category, region: region})
     const {data: type = [], error, isLoading} = useFetchVacancyCategoryQuery()
     const {data: regions} = useGetRegionQuery()
@@ -23,8 +23,13 @@ const FoundVacancies = () => {
     const [regionShow, setRegionShow] = useState(false)
     const [typeShow, setTypeShow] = useState(false)
 
+    const getParams = () =>{
+        
+    }
 
-    console.log(search)
+    /*
+
+    console.log(search)*/
 
     useEffect(() => {
         const targetElement = document.getElementById('vacanciesScroll');
