@@ -2,10 +2,10 @@ import React from 'react';
 
 
 import "./Regions.scss"
-import {NavLink, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useGetRegionQuery} from "../../sevices/regionServices";
 import {useAppDispatch} from "../../hooks/redux";
-import {addCategory, addRegion} from "../../store/searchSlice";
+import {addRegion} from "../../store/searchSlice";
 import {serialize} from "../VacanciesTypes/VacanciesTypes";
 
 const Regions = () => {
@@ -36,7 +36,9 @@ const Regions = () => {
 
                     {
                         regions && regions.map(item =>
-                            <li className="region-item" onClick={()=>setRegion(item.title.region)}>
+                            <li className="region-item"
+                                key={item.title.id}
+                                onClick={()=>setRegion(item.title.region)}>
                                  <span className="item-text">
                                   {item.title.region}
                                  </span>

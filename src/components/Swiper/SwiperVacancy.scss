@@ -21,8 +21,14 @@
   text-align: center;
   color: #002757;
   margin: 100px 0;
-
 }
+@media (max-width: 425px) {
+  .topVacancyTitle{
+    font-size: 25px;
+    margin: 30px 0;
+  }
+}
+
 
 .swiper-slide {
   text-align: left;
@@ -182,6 +188,13 @@
       }
     }
   }
+
+}
+@media (max-width: 425px) {
+  .mySwiper{
+    min-height: auto;
+  }
+
 }
 
 .swiperButtonWrapper {

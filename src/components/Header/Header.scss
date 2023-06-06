@@ -58,13 +58,13 @@
       position: relative;
       display: inline-block;
       background: rgba(0, 0, 0, 0.35);
-      border: 1px  solid #FFFFFF;
+      border: 1px solid #FFFFFF;
       border-radius: 20px 0 0 20px;
       width: 90%;
       height: 110px;
       padding: 0 20px 0 50px;
       color: #fff;
-      font-size: 50px;
+      font-size: calc(var(--index) * 1.6);
       outline: none;
 
       &::-webkit-search-cancel-button {
@@ -76,15 +76,19 @@
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E");
       }
 
+
       &::-webkit-input-placeholder {
         color: #FFFFFF;
-        font-size: calc(var(--index) * 2.7);
+        font-size: calc(var(--index) * 1.6);
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
-
-
-
     }
-    &__btn{
+
+    &__btn {
       height: 110px;
       color: #FFFFFF;
       background: #005FD4;

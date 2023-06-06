@@ -17,28 +17,37 @@
 
   .header__search {
     input {
-      height: 70px;
+      height: 55px;
       font-size: 20px;
       padding: 0 20px;
 
     }
 
     .header__search__btn {
-      height: 70px;
+      height: 55px;
+      border-radius: 0 10px 10px 0;
     }
   }
 
   .header__header {
     font-size: 15px;
-    padding-right: 16px;
-    padding-left: 18px;
-
+    padding: 10px 18px;
     &__logo {
-      img {
-        width: 50px;
-        height: 50px;
-        margin-right: 10px;
+      margin-left: 10px;
+
+      a{
+        width: 40px;
+        height: 40px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
       }
+      h1{
+        margin-left: 10px;
+        font-size: 17px;
+      }
+
     }
   }
 
@@ -68,6 +77,9 @@
   }
 
   .header__header__logo {
+    h1{
+      font-size: 14px;
+    }
     img {
       height: 27px;
       width: 27px;
@@ -77,12 +89,26 @@
   .header__search {
     input {
       font-size: 20px;
-      height: 25px;
-      padding: 0 20px;
+      height: 40px;
+      padding: 0 10px;
+      border-radius: 5px 0 0 5px;
+      &::-webkit-search-cancel-button {
+        -webkit-appearance: none;
+        cursor: pointer;
+        width: 25px;
+        height: 25px;
+        background-repeat: no-repeat;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E");
+      }
+      &::-webkit-input-placeholder{
+        font-size: 14px;
+
+      }
     }
 
     .header__search__btn {
-      height: 25px;
+      height: 40px;
+      font-size: 17px;
     }
   }
 }

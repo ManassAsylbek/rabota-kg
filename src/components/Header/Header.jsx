@@ -11,9 +11,20 @@ const Header = () => {
     const debounced = useDebounce(value)
     const navigate = useNavigate()
 
-    const handleSubmit = () => {
+    const handleSubmit = (event) => {
         navigate(`/vacancies/${debounced}`)
     }
+
+    const scrollToAbout = () => {
+        const targetElement = document.getElementById('AboutUs');
+        if (targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop,
+                behavior: 'smooth',
+            });
+        }
+    }
+
 
     return (
         <header className="header">
@@ -22,13 +33,13 @@ const Header = () => {
                     <a href="/"><img src={HeaderLogo} alt="logo"/></a>
                     <h1>Работа в Кыргызстане</h1>
                 </div>
-                <div className="header__header__about">
+                <div className="header__header__about" onClick={scrollToAbout}>
                     <h2>О нас</h2>
                 </div>
             </div>
             <div className="header__main">
                 <div className="header__search">
-                    <input type="search" placeholder={'🔍︎'} onChange={(e) => setValue(e.target.value)}/>
+                    <input type="search" placeholder={'Введите город, вакансию или отрасль'} onChange={(e) => setValue(e.target.value)}/>
                     <button className="header__search__btn" onClick={handleSubmit}>🔍︎</button>
                 </div>
                 <button className='header__button'>

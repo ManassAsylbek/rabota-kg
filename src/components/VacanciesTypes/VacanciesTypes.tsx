@@ -8,6 +8,7 @@ import {NavLink, useNavigate} from "react-router-dom";
 import {useAppDispatch} from "../../hooks/redux";
 import {addCategory} from "../../store/searchSlice";
 import {useSearchParams} from 'react-router-dom'
+
 export interface IGetParams {
     category?: string,
     city?: string
@@ -23,14 +24,13 @@ const VacanciesTypes = () => {
     const navigate = useNavigate()
 
 
-
-    const handleSubmit = (title : string) => {
+    const handleSubmit = (title: string) => {
         let params = {
-        category: title
-    }
+            category: title
+        }
         let s = serialize(params)
         dispatch(addCategory(title))
-        navigate(`/vacancies`+ s)
+        navigate(`/vacancies` + s)
     }
 
 
@@ -43,16 +43,15 @@ const VacanciesTypes = () => {
                     </div>
                     <ul className="vacancies-body-list">
                         {
-                            category && category.map(item => (
-                                // <NavLink to={`/vacancies`}>
-                                    <li className="vacancies-body-list-item"  onClick={()=> handleSubmit(item.title)}>
+                            category && category.map((item) => (
+                                <li className="vacancies-body-list-item"
+                                    key={item.id}
+                                    onClick={() => handleSubmit(item.title)}>
                                     <span className="item-text">
-                                        <a href="" className="item-link">
                                         {item.title}
-                                        </a>
                                     </span>
-                                    </li>
-                                // </NavLink>
+                                </li>
+
                             ))
                         }
                     </ul>
