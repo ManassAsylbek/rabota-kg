@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react';
 
-
 import "./FoundVacancies.scss"
 
-import {NavLink, useParams, useSearchParams} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 import {useFetchAllVacancyQuery} from "../../sevices/vacanciesServices";
 import ItemVacancies from "./ItemVacancies";
 import {useGetRegionQuery} from "../../sevices/regionServices";
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {useFetchVacancyCategoryQuery} from "../../sevices/vacancyCategoryServices";
 import {useDebounce} from "../../hooks/debounce";
 
@@ -21,8 +19,7 @@ const FoundVacancies = () => {
 
     const [windowOpenFilter, setWindowOpenFilter] = useState(false)
 
-    const dispatch = useAppDispatch();
-    const {data: vacancy,isLoading,isFetching} = useFetchAllVacancyQuery({search: debouncedSearch, vacancy_category: category, region: region})
+    const {data: vacancy,isFetching} = useFetchAllVacancyQuery({search: debouncedSearch, vacancy_category: category, region: region})
     const {data: type = []} = useFetchVacancyCategoryQuery()
     const {data: regions} = useGetRegionQuery()
 
