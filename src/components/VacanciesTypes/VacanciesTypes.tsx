@@ -4,10 +4,8 @@ import React from 'react';
 import "./VacanciesTypes.scss"
 import "../../styles/index.scss"
 import {useFetchVacancyCategoryQuery} from "../../sevices/vacancyCategoryServices";
-import {NavLink, useNavigate} from "react-router-dom";
-import {useAppDispatch} from "../../hooks/redux";
-import {addCategory} from "../../store/searchSlice";
-import {useSearchParams} from 'react-router-dom'
+import { useNavigate} from "react-router-dom";
+
 export interface IGetParams {
     category?: string,
     city?: string
@@ -18,19 +16,16 @@ export const serialize = (params: IGetParams) => {
 }
 
 const VacanciesTypes = () => {
-    const dispatch = useAppDispatch();
     const {data: category = [], error, isLoading} = useFetchVacancyCategoryQuery()
     const navigate = useNavigate()
 
 
+    const handleSubmit = (title: string) => {
 
-    const handleSubmit = (title : string) => {
-        let params = {
-        category: title
-    }
-        let s = serialize(params)
-        dispatch(addCategory(title))
-        navigate(`/vacancies`+ s)
+        navigate({
+            pathname: '/vacancies',
+            search: `?category=${title}`
+        })
     }
 
 
@@ -45,13 +40,13 @@ const VacanciesTypes = () => {
                         {
                             category && category.map(item => (
                                 // <NavLink to={`/vacancies`}>
-                                    <li className="vacancies-body-list-item"  onClick={()=> handleSubmit(item.title)}>
+                                <li className="vacancies-body-list-item" onClick={() => handleSubmit(item.title)}>
                                     <span className="item-text">
                                         <a href="" className="item-link">
                                         {item.title}
                                         </a>
                                     </span>
-                                    </li>
+                                </li>
                                 // </NavLink>
                             ))
                         }

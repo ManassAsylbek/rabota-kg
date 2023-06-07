@@ -6,7 +6,7 @@ import {NavLink, useNavigate} from "react-router-dom";
 import {useGetRegionQuery} from "../../sevices/regionServices";
 import {useAppDispatch} from "../../hooks/redux";
 import {addCategory, addRegion} from "../../store/searchSlice";
-import {serialize} from "../VacanciesTypes/VacanciesTypes";
+
 
 const Regions = () => {
     const dispatch = useAppDispatch();
@@ -16,13 +16,11 @@ const Regions = () => {
 
 
     const setRegion = (region:string) => {
-        let params = {
-            city: region
-        }
-        let s = serialize(params)
-        dispatch(addRegion(region));
-        navigate(`/vacancies`+ s)
 
+        navigate({
+            pathname: '/vacancies',
+            search: `?region=${region}`
+        })
     };
 
     return (

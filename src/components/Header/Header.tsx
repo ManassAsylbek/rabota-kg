@@ -28,7 +28,6 @@ const Header = () => {
         }
 
         if (location.pathname !== "/vacancies") {
-            console.log("dont work")
             navigate({
                 pathname: '/vacancies',
                 search: `?search=${debounced}`

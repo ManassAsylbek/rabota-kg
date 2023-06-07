@@ -31,23 +31,28 @@ const FoundVacancies = () => {
     const getRegion = (params: string) => {
         if (params !== region)
             serSearchParams({
+                search: search,
                 region: params,
                 category: category,
-                search:search
+
             })
         else serSearchParams({
+            search: search,
             category: category
         })
     }
     const getCategory = (params: string) => {
         if (params !== category)
             serSearchParams({
+                search: search,
                 region: region,
                 category: params,
-                search:search
+
             })
         else serSearchParams({
+            search: search,
             region: region,
+
         })
     }
 
@@ -98,7 +103,9 @@ const FoundVacancies = () => {
                                 {region}
                                 <input type="checkbox"
                                        onClick={() => serSearchParams({
-                                           category: category
+                                           search: search,
+                                           category: category,
+
                                        })}
                                        checked={region !== ""}/>
                                 <div className="control_indicator"></div>
@@ -127,9 +134,10 @@ const FoundVacancies = () => {
                             >
                                 {category}
                                 <input type="checkbox"
-                                    /* onClick={() => getCategory(category)}*/
                                        onClick={() => serSearchParams({
+                                           search: search,
                                            region: region,
+
                                        })}
                                        checked={category !== ""}/>
                                 <div className="control_indicator"></div>
