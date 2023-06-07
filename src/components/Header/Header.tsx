@@ -17,15 +17,7 @@ const Header = () => {
 
 
     const handleSubmit = () => {
-        console.log(location.pathname)
-        /* let params = `?search=${debounced}`*/
         let params = searchParams.toString()
-        /*  if (region)
-              `${params}&${region}`
-
-          if (category)
-              `${params}&${category}`
-  */
         if (location.pathname === "/vacancies") {
             searchParams.append("search", debounced);
             setSearchParams({
