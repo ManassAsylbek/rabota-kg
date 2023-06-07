@@ -9,19 +9,20 @@ import ItemVacancies from "./ItemVacancies";
 import {useGetRegionQuery} from "../../sevices/regionServices";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {useFetchVacancyCategoryQuery} from "../../sevices/vacancyCategoryServices";
-import {IVacancyParams} from "../../interfaces";
+import {useDebounce} from "../../hooks/debounce";
+
 
 const FoundVacancies = () => {
     const [searchParams, serSearchParams] = useSearchParams();
     const search = searchParams.get('search') || ""
     const region = searchParams.get('region') || ""
     const category = searchParams.get('category') || ""
-
+    const debouncedSearch = useDebounce(search)
 
     const [windowOpenFilter, setWindowOpenFilter] = useState(false)
 
     const dispatch = useAppDispatch();
-    const {data: vacancy} = useFetchAllVacancyQuery({search: search, vacancy_category: category, region: region})
+    const {data: vacancy,isLoading,isFetching} = useFetchAllVacancyQuery({search: debouncedSearch, vacancy_category: category, region: region})
     const {data: type = []} = useFetchVacancyCategoryQuery()
     const {data: regions} = useGetRegionQuery()
 
@@ -161,6 +162,9 @@ const FoundVacancies = () => {
                     </div>
 
                     <div className="vacanciesSidebarContent">
+                        {
+                            isFetching && <div>Загрузка</div>
+                        }
                         {
                             vacancy && vacancy.map(item => <ItemVacancies data={item}/>)
                         }
