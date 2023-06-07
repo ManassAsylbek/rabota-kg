@@ -7,7 +7,7 @@ import {useFetchVacancyCategoryQuery} from "../../sevices/vacancyCategoryService
 import {NavLink, useNavigate} from "react-router-dom";
 import {useAppDispatch} from "../../hooks/redux";
 import {addCategory} from "../../store/searchSlice";
-import {useSearchParams,createSearchParams} from 'react-router-dom'
+import {useSearchParams} from 'react-router-dom'
 export interface IGetParams {
     category?: string,
     city?: string
@@ -23,16 +23,14 @@ const VacanciesTypes = () => {
     const navigate = useNavigate()
 
 
+
     const handleSubmit = (title : string) => {
         let params = {
         category: title
     }
-
-      /*  dispatch(addCategory(title))*/
-        navigate({
-            pathname: '/vacancies',
-            search: `?${createSearchParams(params)}`
-        })
+        let s = serialize(params)
+        dispatch(addCategory(title))
+        navigate(`/vacancies`+ s)
     }
 
 
