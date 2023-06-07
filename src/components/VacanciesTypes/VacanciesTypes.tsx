@@ -28,7 +28,7 @@ const VacanciesTypes = () => {
         category: title
     }
 
-        dispatch(addCategory(title))
+      /*  dispatch(addCategory(title))*/
         navigate({
             pathname: '/vacancies',
             search: `?${createSearchParams(params)}`

@@ -16,7 +16,7 @@ const Regions = () => {
 
     const setRegion = (region: string) => {
         let params = {
-            city: region
+            region: region
         }
         dispatch(addRegion(region));
         navigate({

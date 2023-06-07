@@ -3,33 +3,55 @@ import React, {useEffect, useState} from 'react';
 
 import "./FoundVacancies.scss"
 
-import {NavLink, useParams} from "react-router-dom";
+import {NavLink, useParams, useSearchParams} from "react-router-dom";
 import {useFetchAllVacancyQuery} from "../../sevices/vacanciesServices";
 import ItemVacancies from "./ItemVacancies";
 import {useGetRegionQuery} from "../../sevices/regionServices";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {addCategory, addRegion} from "../../store/searchSlice";
 import {useFetchVacancyCategoryQuery} from "../../sevices/vacancyCategoryServices";
+import {IVacancyParams} from "../../interfaces";
 
 const FoundVacancies = () => {
+    const [searchParams, serSearchParams] = useSearchParams();
+    const search = searchParams.get('search') || ""
+    const region = searchParams.get('region') || ""
+    const category = searchParams.get('category') || ""
+
+
     const [windowOpenFilter, setWindowOpenFilter] = useState(false)
-    const {} = useParams()
+
     const dispatch = useAppDispatch();
-    const {region, category,search} = useAppSelector(state => state.searchSlice);
     const {data: vacancy} = useFetchAllVacancyQuery({search: search, vacancy_category: category, region: region})
-    const {data: type = [], error, isLoading} = useFetchVacancyCategoryQuery()
+    const {data: type = []} = useFetchVacancyCategoryQuery()
     const {data: regions} = useGetRegionQuery()
 
     const [regionShow, setRegionShow] = useState(false)
     const [typeShow, setTypeShow] = useState(false)
 
-    const getParams = () =>{
-        
+    const getRegion = (params: string) => {
+        if (params !== region)
+            serSearchParams({
+                region: params,
+                category: category,
+                search:search
+            })
+        else serSearchParams({
+            category: category
+        })
+    }
+    const getCategory = (params: string) => {
+        if (params !== category)
+            serSearchParams({
+                region: region,
+                category: params,
+                search:search
+            })
+        else serSearchParams({
+            region: region,
+        })
     }
 
-    /*
-
-    console.log(search)*/
 
     useEffect(() => {
         const targetElement = document.getElementById('vacanciesScroll');
@@ -76,9 +98,10 @@ const FoundVacancies = () => {
                             >
                                 {region}
                                 <input type="checkbox"
-                                       onClick={() => dispatch(addRegion(region))}
-                                       checked={region !== ""}
-                                       defaultValue={region}/>
+                                       onClick={() => serSearchParams({
+                                           category: category
+                                       })}
+                                       checked={region !== ""}/>
                                 <div className="control_indicator"></div>
                             </label>}
 
@@ -88,9 +111,9 @@ const FoundVacancies = () => {
                                     >
                                         {item.title.region}
                                         <input type="checkbox"
-                                               onClick={() => dispatch(addRegion(item.title.region))}
+                                               onClick={() => getRegion(item.title.region)}
                                                checked={item.title.region === region}
-                                               defaultValue={item.title.region}/>
+                                        />
                                         <div className="control_indicator"></div>
                                     </label>
                                 )
@@ -105,9 +128,11 @@ const FoundVacancies = () => {
                             >
                                 {category}
                                 <input type="checkbox"
-                                       onClick={() => dispatch(addCategory(category))}
-                                       checked={category !== ""}
-                                       defaultValue={category}/>
+                                    /* onClick={() => getCategory(category)}*/
+                                       onClick={() => serSearchParams({
+                                           region: region,
+                                       })}
+                                       checked={category !== ""}/>
                                 <div className="control_indicator"></div>
                             </label>}
 
@@ -117,9 +142,9 @@ const FoundVacancies = () => {
                                     >
                                         {item.title}
                                         <input type="checkbox"
-                                               onClick={() => dispatch(addCategory(item.title))}
+                                               onClick={() => getCategory(item.title)}
                                                checked={item.title === category}
-                                               defaultValue={item.title}/>
+                                        />
                                         <div className="control_indicator"></div>
                                     </label>
                                 )

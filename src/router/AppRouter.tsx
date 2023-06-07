@@ -17,11 +17,6 @@ const pagesData: routerType[] = [
         element: <Vacancies/>,
         title: "vacancies"
     },
-    {
-        path: "/vacancies/:params",
-        element: <Vacancies/>,
-        title: "vacancies"
-    },
 ];
 
 const AppRouter = () => {
