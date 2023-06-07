@@ -8,7 +8,6 @@ import {useFetchAllVacancyQuery} from "../../sevices/vacanciesServices";
 import ItemVacancies from "./ItemVacancies";
 import {useGetRegionQuery} from "../../sevices/regionServices";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {addCategory, addRegion} from "../../store/searchSlice";
 import {useFetchVacancyCategoryQuery} from "../../sevices/vacancyCategoryServices";
 import {IVacancyParams} from "../../interfaces";
 
