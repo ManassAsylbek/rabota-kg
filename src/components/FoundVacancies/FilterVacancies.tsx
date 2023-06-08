@@ -5,6 +5,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {useFetchAllVacancyQuery} from "../../sevices/vacanciesServices";
 import {useFetchVacancyCategoryQuery} from "../../sevices/vacancyCategoryServices";
 import {useGetRegionQuery} from "../../sevices/regionServices";
+import check from "../../assets/icons/check.svg"
 
 
 interface IFilterVacancies{
@@ -37,6 +38,8 @@ const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
 
     const [regionShow, setRegionShow] = useState(modalClose)
     const [typeShow, setTypeShow] = useState(modalClose)
+    const [beforeEighteen, setBeforeEighteen] = useState(false)
+    const [afterEighteen, setAfterEighteen] = useState(false)
 
     const getRegion = (params: string) => {
         if (params !== region)
@@ -74,86 +77,130 @@ const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
                     Фильтрация
                 </div>
             }
-            <div className="filter">
-                <div className="filterTitle">
-                    Возраст
-                </div>
-                <label className="control control-checkbox">
-                    До 18-ти
-                    <input type="checkbox"/>
-                    <div className="control_indicator"></div>
-                </label>
-                <label className="control control-checkbox">
-                    После 18ти
-                    <input type="checkbox"/>
-                    <div className="control_indicator"></div>
-                </label>
-            </div>
-            <div className="filter">
-                <div className="filterTitle" onClick={() => setRegionShow(!regionShow)}>
-                    Регион
-                </div>
-                {!regionShow && region && <label className="control control-checkbox"
-                >
-                    {region}
-                    <input  type="radio" name="radio"
-                            onClick={() => serSearchParams({
-                                search: search,
-                                category: category,
+            <div className="vacanciesSidebarFilter">
+                        <div className="filter">
+                            <div className="filterTitle">
+                                Возраст
+                            </div>
+                            <label className="control control-checkbox"
+                                onClick={() => setBeforeEighteen(!beforeEighteen)}>
+                                <div className={beforeEighteen
+                                    ? "control-checkbox__check "
+                                    : "control-checkbox__check__before"}
+                                >
+                                    {beforeEighteen
+                                        ? <img src={check} alt="" />
+                                        : ""
+                                    }
 
-                            })}
-                           defaultChecked={region !== "" || false}
-                    />
-                    <div className="control_indicator"></div>
-                </label>}
+                                </div>
+                                До 18-ти
 
-                {
-                    regionShow  && regions && regions.map((item, index) =>
-                        <label className="control control-checkbox" key={index}
-                        >
-                            {item.title.region}
-                                <input type="radio" name="radio"
-                                       defaultChecked={item.title.region === region || false}
-                                       onClick={() => getRegion(item.title.region)}
-                                />
-                            <div className="control_indicator"></div>
-                        </label>
-                    )
-                }
+                            </label>
+                            <label className="control control-checkbox"
+                                onClick={() => setAfterEighteen(!afterEighteen)}>
+                                <div className={afterEighteen
+                                    ? "control-checkbox__check "
+                                    : "control-checkbox__check__before"}
+                                >
+                                    {afterEighteen
+                                        ? <img src={check} alt="" />
+                                        : ""
+                                    }
 
-            </div>
-            <div className="filter">
-                <div className="filterTitle" onClick={() => setTypeShow(!typeShow)}>
-                    Отрасли
-                </div>
-                {!typeShow  && category && <label className="control control-checkbox"
-                >
-                    {category}
-                    <input  type="radio" name="radio"
-                            onClick={() => serSearchParams({
-                                search: search,
-                                region: region,
+                                </div>
+                                После 18ти
+                            </label>
+                            {/* <label className="control control-checkbox">
+                                До 18-ти
+                                <input type="checkbox"/>
+                                <div className="control_indicator"></div>
+                            </label>*/}
+                        </div>
+                        <div className="filter">
+                            <div className="filterTitle" onClick={() => setRegionShow(!regionShow)}>
+                                Регион
+                            </div>
+                            {!regionShow && region && <label className="control control-checkbox"
+                                onClick={() => serSearchParams({
+                                    search: search,
+                                    category: category,
 
-                            })}
-                           defaultChecked={category !== ""}
-                    />
-                    <div className="control_indicator"></div>
-                </label>}
+                                })}
+                            >
+                                <div className={"control-checkbox__check"}
+                                >
+                                    {
+                                        <img src={check} alt="" />
+                                    }
 
-                {
-                    typeShow && type && type.map((item, index) =>
-                        <label className="control control-checkbox" key={index}
-                        >
-                            {item.title}
-                            <input  type="radio" name="radio"
-                                   onClick={() => getCategory(item.title)}
-                                   defaultChecked={item.title === category}
-                            />
-                            <div className="control_indicator"></div>
-                        </label>
-                    )
-                }
-            </div>
+                                </div>
+                                {region}
+                            </label>}
+
+                            {
+                                regionShow && regions && regions.map(item =>
+                                    <label className="control control-checkbox" key={item.title.region}
+                                        onClick={() => getRegion(item.title.region)}
+                                    >
+                                        <div className={item.title.region === region
+                                            ? "control-checkbox__check "
+                                            : "control-checkbox__check__before"}
+                                        >
+                                            {
+                                                item.title.region === region
+                                                    ? <img src={check} alt="" />
+                                                    : ""
+                                            }
+
+                                        </div>
+                                        {item.title.region}
+                                    </label>
+                                )
+                            }
+
+                        </div>
+                        <div className="filter">
+                            <div className="filterTitle" onClick={() => setTypeShow(!typeShow)}>
+                                Отрасли
+                            </div>
+                            {!typeShow && category && <label className="control control-checkbox"
+                                onClick={() => serSearchParams({
+                                    search: search,
+                                    region: region,
+
+                                })}>
+                                <div className={"control-checkbox__check"}
+                                >
+                                    {
+                                        <img src={check} alt="" />
+                                    }
+                                </div>
+                                {category}
+                            </label>}
+
+                            {
+                                typeShow && type && type.map(item =>
+                                    <label className="control control-checkbox" key={item.title}
+                                        onClick={() => getCategory(item.title)}
+                                    >
+                                        <div className={item.title === category
+                                            ? "control-checkbox__check "
+                                            : "control-checkbox__check__before"}
+                                        >
+                                            {
+                                                item.title === category
+                                                    ? <img src={check} alt="" />
+                                                    : ""
+                                            }
+
+                                        </div>
+                                        {item.title}
+                                    </label>
+                                )
+                            }
+                        </div>
+                    </div>
         </div>
     );
 };

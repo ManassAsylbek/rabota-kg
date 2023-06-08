@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 import "./FoundVacancies.scss"
 
-import {useSearchParams} from "react-router-dom";
-import {useFetchAllVacancyQuery} from "../../sevices/vacanciesServices";
+import { useSearchParams } from "react-router-dom";
+import { useFetchAllVacancyQuery } from "../../sevices/vacanciesServices";
 import ItemVacancies from "./ItemVacancies";
-import {useGetRegionQuery} from "../../sevices/regionServices";
-import {useFetchVacancyCategoryQuery} from "../../sevices/vacancyCategoryServices";
+import { useGetRegionQuery } from "../../sevices/regionServices";
+import { useFetchVacancyCategoryQuery } from "../../sevices/vacancyCategoryServices";
 
 import FilterVacancies from "./FilterVacancies";
-import {createPortal} from "react-dom";
+import { createPortal } from "react-dom";
 import Modal from "../Layout/Modal/Modal";
-import {useDebounce} from "../../hooks/debounce";
+import { useDebounce } from "../../hooks/debounce";
 
 const FoundVacancies = () => {
     const [searchParams, serSearchParams] = useSearchParams();
@@ -20,13 +20,15 @@ const FoundVacancies = () => {
     const category = searchParams.get('category') || ""
     const debouncedSearch = useDebounce(search)
 
-    const {data: vacancy, isFetching} = useFetchAllVacancyQuery({
+ 
+
+    const { data: vacancy, isFetching } = useFetchAllVacancyQuery({
         search: debouncedSearch,
         vacancy_category: category,
         region: region
     })
-    const {data: type = []} = useFetchVacancyCategoryQuery()
-    const {data: regions} = useGetRegionQuery()
+    const { data: type = [] } = useFetchVacancyCategoryQuery()
+    const { data: regions } = useGetRegionQuery()
 
     const [close, setClose] = useState(false)
 
@@ -48,10 +50,10 @@ const FoundVacancies = () => {
                     Найдено {vacancy ? vacancy.length : "0"} вакансии
                 </div>
 
-                <hr className="titleLine"/>
+                <hr className="titleLine" />
 
                 <div className="vacanciesSidebar">
-                    <FilterVacancies modalClose={false}/>
+                    <FilterVacancies modalClose={false} />
 
                     {createPortal(
                         <div className="filterModal">
@@ -64,7 +66,7 @@ const FoundVacancies = () => {
                             {close &&
                                 <Modal>
                                     <div className="modalContent">
-                                        <FilterVacancies modalClose={close}/>
+                                        <FilterVacancies modalClose={close} />
                                         <button className="closeButton" onClick={() => {
                                             document.body.style.overflow = 'auto';
                                             setClose(false)
@@ -76,13 +78,14 @@ const FoundVacancies = () => {
                             }
                         </div>, document.body
                     )}
+                    
 
                     <div className="vacanciesSidebarContent">
                         {
                             isFetching && <div>Загрузка</div>
                         }
                         {
-                            vacancy && vacancy.map(item => <ItemVacancies key={item.id} data={item}/>)
+                            vacancy && vacancy.map(item => <ItemVacancies key={item.id} data={item} />)
                         }
 
                     </div>

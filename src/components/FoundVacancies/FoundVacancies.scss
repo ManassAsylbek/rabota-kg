@@ -82,7 +82,7 @@ $border-color_1: #7b7b7b;
     .control {
       display: block;
       position: relative;
-      padding-left: 30px;
+      /*padding-left: 30px;*/
       margin-bottom: 2px;
       padding-top: 3px;
       cursor: pointer;
@@ -120,7 +120,7 @@ $border-color_1: #7b7b7b;
             }
           }
 
-          ~ ~ {
+          ~{
             .control {
               color: #000;
             }
@@ -186,6 +186,52 @@ $border-color_1: #7b7b7b;
     }
 
     .control-checkbox {
+      display: grid;
+      align-items: center;
+      grid-template-columns:20px 1fr;
+      column-gap: 15px;
+      user-select: none;
+
+      &__check {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 20px;
+        width: 20px;
+
+        background: #000000;
+        border: 0px solid #000000;
+        border-radius: 6px;
+
+        &__before {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 20px;
+          width: 20px;
+          background: #e6e6e6;
+          border: 0px solid #000000;
+          border-radius: 6px;
+        }
+      }
+
+      &__check::before {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 0rem;
+        height: 0rem;
+        margin-left: -3rem;
+        margin-top: -3rem;
+        background: #000000;
+        border-radius: 0rem;
+        opacity: 0;
+        z-index: 99999;
+        transform: scale(0);
+      }
+
       .control_indicator {
         &:after {
           left: 8px;
@@ -425,27 +471,32 @@ $border-color_1: #7b7b7b;
 
 @media(max-width: 1024px) {
 
-  .vacanciesSidebar{
+  .vacanciesSidebar {
     justify-content: space-between;
-    .vacanciesSidebarFilter{
-      .filter{
+
+    .vacanciesSidebarFilter {
+      .filter {
         width: 100%;
         padding: 0 15px 15px;
-        .control{
+
+        .control {
           font-size: 13px;
           font-weight: 600;
         }
-        .filterTitle{
+
+        .filterTitle {
           padding: 15px 0 0 0;
           font-size: 18px;
         }
       }
     }
-    .vacanciesSidebarContent{
+
+    .vacanciesSidebarContent {
       width: 70%;
-      .vacanciesBox{
-        .vacancyBtnIcons{
-          .vacancyButtonMore{
+
+      .vacanciesBox {
+        .vacancyBtnIcons {
+          .vacancyButtonMore {
             width: 140px;
             height: 35px;
             font-size: 15px;
