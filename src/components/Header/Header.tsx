@@ -3,7 +3,6 @@ import HeaderLogo from '../../assets/icons/headerlogo.svg';
 import './Header.scss';
 import './Header-media.scss';
 import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
-import {useDebounce} from "../../hooks/debounce";
 
 const Header = () => {
     const [searchParams,setSearchParams] = useSearchParams();

@@ -8,7 +8,7 @@ import ItemVacancies from "./ItemVacancies";
 import {useGetRegionQuery} from "../../sevices/regionServices";
 import {useFetchVacancyCategoryQuery} from "../../sevices/vacancyCategoryServices";
 import {useDebounce} from "../../hooks/debounce";
-
+import check from "../../assets/icons/check.svg"
 
 const FoundVacancies = () => {
     const [searchParams, serSearchParams] = useSearchParams();
@@ -19,12 +19,18 @@ const FoundVacancies = () => {
 
     const [windowOpenFilter, setWindowOpenFilter] = useState(false)
 
-    const {data: vacancy,isFetching} = useFetchAllVacancyQuery({search: debouncedSearch, vacancy_category: category, region: region})
+    const {data: vacancy, isFetching} = useFetchAllVacancyQuery({
+        search: debouncedSearch,
+        vacancy_category: category,
+        region: region
+    })
     const {data: type = []} = useFetchVacancyCategoryQuery()
     const {data: regions} = useGetRegionQuery()
 
     const [regionShow, setRegionShow] = useState(false)
     const [typeShow, setTypeShow] = useState(false)
+    const [beforeEighteen, setBeforeEighteen] = useState(false)
+    const [afterEighteen, setAfterEighteen] = useState(false)
 
     const getRegion = (params: string) => {
         if (params !== region)
@@ -81,44 +87,79 @@ const FoundVacancies = () => {
                             <div className="filterTitle">
                                 Возраст
                             </div>
-                            <label className="control control-checkbox">
+                            <label className="control control-checkbox"
+                                   onClick={() => setBeforeEighteen(!beforeEighteen)}>
+                                <div className={beforeEighteen
+                                    ? "control-checkbox__check "
+                                    : "control-checkbox__check__before"}
+                                >
+                                    {beforeEighteen
+                                        ? <img src={check} alt=""/>
+                                        : ""
+                                    }
+
+                                </div>
+                                До 18-ти
+
+                            </label>
+                            <label className="control control-checkbox"
+                                   onClick={() => setAfterEighteen(!afterEighteen)}>
+                                <div className={afterEighteen
+                                    ? "control-checkbox__check "
+                                    : "control-checkbox__check__before"}
+                                >
+                                    {afterEighteen
+                                        ? <img src={check} alt=""/>
+                                        : ""
+                                    }
+
+                                </div>
+                                После 18ти
+                            </label>
+                           {/* <label className="control control-checkbox">
                                 До 18-ти
                                 <input type="checkbox"/>
                                 <div className="control_indicator"></div>
-                            </label>
-                            <label className="control control-checkbox">
-                                После 18ти
-                                <input type="checkbox"/>
-                                <div className="control_indicator"></div>
-                            </label>
+                            </label>*/}
                         </div>
                         <div className="filter">
                             <div className="filterTitle" onClick={() => setRegionShow(!regionShow)}>
                                 Регион
                             </div>
                             {!regionShow && region && <label className="control control-checkbox"
-                            >
-                                {region}
-                                <input type="checkbox"
-                                       onClick={() => serSearchParams({
-                                           search: search,
-                                           category: category,
+                                                             onClick={() => serSearchParams({
+                                                                 search: search,
+                                                                 category: category,
 
-                                       })}
-                                       checked={region !== ""}/>
-                                <div className="control_indicator"></div>
+                                                             })}
+                            >
+                                <div className={"control-checkbox__check"}
+                                >
+                                    {
+                                        <img src={check} alt=""/>
+                                    }
+
+                                </div>
+                                {region}
                             </label>}
 
                             {
                                 regionShow && regions && regions.map(item =>
-                                    <label className="control control-checkbox"
+                                    <label className="control control-checkbox" key={item.title.region}
+                                           onClick={() => getRegion(item.title.region)}
                                     >
+                                        <div className={item.title.region === region
+                                            ? "control-checkbox__check "
+                                            : "control-checkbox__check__before"}
+                                        >
+                                            {
+                                                item.title.region === region
+                                                    ? <img src={check} alt=""/>
+                                                    : ""
+                                            }
+
+                                        </div>
                                         {item.title.region}
-                                        <input type="checkbox"
-                                               onClick={() => getRegion(item.title.region)}
-                                               checked={item.title.region === region}
-                                        />
-                                        <div className="control_indicator"></div>
                                     </label>
                                 )
                             }
@@ -129,32 +170,40 @@ const FoundVacancies = () => {
                                 Отрасли
                             </div>
                             {!typeShow && category && <label className="control control-checkbox"
-                            >
-                                {category}
-                                <input type="checkbox"
-                                       onClick={() => serSearchParams({
-                                           search: search,
-                                           region: region,
+                                                             onClick={() => serSearchParams({
+                                                                 search: search,
+                                                                 region: region,
 
-                                       })}
-                                       checked={category !== ""}/>
-                                <div className="control_indicator"></div>
+                                                             })}>
+                                <div className={"control-checkbox__check"}
+                                >
+                                    {
+                                        <img src={check} alt=""/>
+                                    }
+                                </div>
+                                {category}
                             </label>}
 
                             {
                                 typeShow && type && type.map(item =>
-                                    <label className="control control-checkbox"
+                                    <label className="control control-checkbox" key={item.title}
+                                           onClick={() => getCategory(item.title)}
                                     >
+                                        <div className={item.title === category
+                                            ? "control-checkbox__check "
+                                            : "control-checkbox__check__before"}
+                                        >
+                                            {
+                                                item.title === category
+                                                    ? <img src={check} alt=""/>
+                                                    : ""
+                                            }
+
+                                        </div>
                                         {item.title}
-                                        <input type="checkbox"
-                                               onClick={() => getCategory(item.title)}
-                                               checked={item.title === category}
-                                        />
-                                        <div className="control_indicator"></div>
                                     </label>
                                 )
                             }
-
                         </div>
                     </div>
 
@@ -163,7 +212,7 @@ const FoundVacancies = () => {
                             isFetching && <div>Загрузка</div>
                         }
                         {
-                            vacancy && vacancy.map(item => <ItemVacancies data={item}/>)
+                            vacancy && vacancy.map(item => <ItemVacancies key={item.id} data={item}/>)
                         }
 
                     </div>
