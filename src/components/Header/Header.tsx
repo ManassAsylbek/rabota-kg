@@ -55,7 +55,7 @@ const Header = () => {
             </div>
             <div className="header__main">
                 <div className="header__search">
-                    <input type="search" placeholder={'🔍︎'} value={value} onChange={(e) => onChangeInputValue(e.target.value)}/>
+                    <input type="search" placeholder={'Введите вакансию, город или отрасль'} value={value} onChange={(e) => onChangeInputValue(e.target.value)}/>
                     <button className="header__search__btn" onClick={handleSubmit}>🔍︎</button>
                 </div>
                 <button className='header__button'>

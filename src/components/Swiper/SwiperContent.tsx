@@ -68,12 +68,12 @@ const SwiperContent: React.FC<ISwiperContent> = ({vacancy,more, setMore}) => {
                             </div>
                             <span>{vacancy.views_count}</span>
                         </div>
-                        <div className="likes">
+                      {/*  <div className="likes">
                             <div className="icon">
                                 <img src={like} alt=""/>
                             </div>
                             <span>20</span>
-                        </div>
+                        </div>*/}
                     </div>
                 </div>
             }

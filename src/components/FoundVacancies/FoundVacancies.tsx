@@ -22,7 +22,7 @@ const FoundVacancies = () => {
 
  
 
-    const { data: vacancy, isFetching } = useFetchAllVacancyQuery({
+    const {data: vacancy, isFetching,refetch} = useFetchAllVacancyQuery({
         search: debouncedSearch,
         vacancy_category: category,
         region: region
@@ -85,7 +85,7 @@ const FoundVacancies = () => {
                             isFetching && <div>Загрузка</div>
                         }
                         {
-                            vacancy && vacancy.map(item => <ItemVacancies key={item.id} data={item} />)
+                            vacancy && vacancy.map(item => <ItemVacancies refetch={refetch} key={item.id} data={item}/>)
                         }
 
                     </div>
