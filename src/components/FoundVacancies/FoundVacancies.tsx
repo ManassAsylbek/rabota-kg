@@ -10,6 +10,9 @@ import {useGetRegionQuery} from "../../sevices/regionServices";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {useFetchVacancyCategoryQuery} from "../../sevices/vacancyCategoryServices";
 import {IVacancyParams} from "../../interfaces";
+import FilterVacancies from "./FilterVacancies";
+import {createPortal} from "react-dom";
+import Modal from "../Layout/Modal/Modal";
 
 const FoundVacancies = () => {
     const [searchParams, serSearchParams] = useSearchParams();
@@ -25,36 +28,9 @@ const FoundVacancies = () => {
     const {data: type = []} = useFetchVacancyCategoryQuery()
     const {data: regions} = useGetRegionQuery()
 
-    const [regionShow, setRegionShow] = useState(false)
-    const [typeShow, setTypeShow] = useState(false)
+    const [close, setClose] = useState(false)
 
-    const getRegion = (params: string) => {
-        if (params !== region)
-            serSearchParams({
-                search: search,
-                region: params,
-                category: category,
 
-            })
-        else serSearchParams({
-            search: search,
-            category: category
-        })
-    }
-    const getCategory = (params: string) => {
-        if (params !== category)
-            serSearchParams({
-                search: search,
-                region: region,
-                category: params,
-
-            })
-        else serSearchParams({
-            search: search,
-            region: region,
-
-        })
-    }
 
 
     useEffect(() => {
@@ -77,92 +53,33 @@ const FoundVacancies = () => {
                 <hr className="titleLine"/>
 
                 <div className="vacanciesSidebar">
-                    <div className="vacanciesSidebarFilter">
-                        {windowOpenFilter ? "Фильтр" : ""}
-                        <div className="filter">
-                            <div className="filterTitle">
-                                Возраст
-                            </div>
-                            <label className="control control-checkbox">
-                                До 18-ти
-                                <input type="checkbox"/>
-                                <div className="control_indicator"></div>
-                            </label>
-                            <label className="control control-checkbox">
-                                После 18ти
-                                <input type="checkbox"/>
-                                <div className="control_indicator"></div>
-                            </label>
-                        </div>
-                        <div className="filter">
-                            <div className="filterTitle" onClick={() => setRegionShow(!regionShow)}>
-                                Регион
-                            </div>
-                            {!regionShow && region && <label className="control control-checkbox"
-                            >
-                                {region}
-                                <input type="checkbox"
-                                       onClick={() => serSearchParams({
-                                           search: search,
-                                           category: category,
-
-                                       })}
-                                       checked={region !== ""}/>
-                                <div className="control_indicator"></div>
-                            </label>}
-
-                            {
-                                regionShow && regions && regions.map(item =>
-                                    <label className="control control-checkbox"
-                                    >
-                                        {item.title.region}
-                                        <input type="checkbox"
-                                               onClick={() => getRegion(item.title.region)}
-                                               checked={item.title.region === region}
-                                        />
-                                        <div className="control_indicator"></div>
-                                    </label>
-                                )
+                    <FilterVacancies modalClose={false}/>
+                    {createPortal(
+                        <div className="filterModal">
+                            <button className="filterButton" onClick={() => {
+                                setClose(true)
+                                document.body.style.overflow = 'hidden';
+                            }}>
+                                Фильтр
+                            </button>
+                            {close &&
+                                <Modal>
+                                    <div className="modalContent">
+                                        <FilterVacancies modalClose={close}/>
+                                        <button className="closeButton" onClick={() => {
+                                            document.body.style.overflow = 'auto';
+                                            setClose(false)
+                                        }
+                                        }>✖</button>
+                                    </div>
+                                </Modal>
                             }
-
-                        </div>
-                        <div className="filter">
-                            <div className="filterTitle" onClick={() => setTypeShow(!typeShow)}>
-                                Отрасли
-                            </div>
-                            {!typeShow && category && <label className="control control-checkbox"
-                            >
-                                {category}
-                                <input type="checkbox"
-                                       onClick={() => serSearchParams({
-                                           search: search,
-                                           region: region,
-
-                                       })}
-                                       checked={category !== ""}/>
-                                <div className="control_indicator"></div>
-                            </label>}
-
-                            {
-                                typeShow && type && type.map(item =>
-                                    <label className="control control-checkbox"
-                                    >
-                                        {item.title}
-                                        <input type="checkbox"
-                                               onClick={() => getCategory(item.title)}
-                                               checked={item.title === category}
-                                        />
-                                        <div className="control_indicator"></div>
-                                    </label>
-                                )
-                            }
-
-                        </div>
-                    </div>
+                        </div>, document.body
+                    )}
 
                     <div className="vacanciesSidebarContent">
                         {
-                            vacancy && vacancy.map(item => <ItemVacancies data={item}/>)
+                            vacancy && vacancy.map(item => <ItemVacancies key={item.id} data={item}/>)
                         }
 
                     </div>

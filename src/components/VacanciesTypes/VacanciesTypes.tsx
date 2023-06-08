@@ -40,7 +40,7 @@ const VacanciesTypes = () => {
                         {
                             category && category.map(item => (
                                 // <NavLink to={`/vacancies`}>
-                                <li className="vacancies-body-list-item" onClick={() => handleSubmit(item.title)}>
+                                <li className="vacancies-body-list-item" onClick={() => handleSubmit(item.title)} key={item.id}>
                                     <span className="item-text">
                                         <a href="" className="item-link">
                                         {item.title}

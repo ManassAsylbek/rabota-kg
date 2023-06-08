@@ -34,7 +34,7 @@ const Regions = () => {
 
                     {
                         regions && regions.map(item =>
-                            <li className="region-item" onClick={()=>setRegion(item.title.region)}>
+                            <li className="region-item" key={item.title.id} onClick={()=>setRegion(item.title.region)}>
                                  <span className="item-text">
                                   {item.title.region}
                                  </span>

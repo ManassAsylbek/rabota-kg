@@ -1,6 +1,6 @@
 import React, {FC, useState} from 'react';
 import {addCategory, addRegion} from "../../store/searchSlice";
-import {useParams} from "react-router-dom";
+import {useParams, useSearchParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {useFetchAllVacancyQuery} from "../../sevices/vacanciesServices";
 import {useFetchVacancyCategoryQuery} from "../../sevices/vacancyCategoryServices";
@@ -13,16 +13,60 @@ interface IFilterVacancies{
 
 
 const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
+
     const [windowOpenFilter, setWindowOpenFilter] = useState(false)
-    const {search} = useParams()
+
+    // const {search} = useParams()
+    // const dispatch = useAppDispatch();
+    // const {region, category} = useAppSelector(state => state.searchSlice);
+    // const {data: vacancy} = useFetchAllVacancyQuery({search: search, vacancy_category: category, region: region})
+    // const {data: type = [], error, isLoading} = useFetchVacancyCategoryQuery()
+    // const {data: regions} = useGetRegionQuery()
+
+
+    const [searchParams, serSearchParams] = useSearchParams();
+    const search = searchParams.get('search') || ""
+    const region = searchParams.get('region') || ""
+    const category = searchParams.get('category') || ""
+
+
     const dispatch = useAppDispatch();
-    const {region, category} = useAppSelector(state => state.searchSlice);
     const {data: vacancy} = useFetchAllVacancyQuery({search: search, vacancy_category: category, region: region})
-    const {data: type = [], error, isLoading} = useFetchVacancyCategoryQuery()
+    const {data: type = []} = useFetchVacancyCategoryQuery()
     const {data: regions} = useGetRegionQuery()
+
 
     const [regionShow, setRegionShow] = useState(modalClose)
     const [typeShow, setTypeShow] = useState(modalClose)
+
+    const getRegion = (params: string) => {
+        if (params !== region)
+            serSearchParams({
+                search: search,
+                region: params,
+                category: category,
+
+            })
+        else serSearchParams({
+            search: search,
+            category: category
+        })
+    }
+    const getCategory = (params: string) => {
+        if (params !== category)
+            serSearchParams({
+                search: search,
+                region: region,
+                category: params,
+
+            })
+        else serSearchParams({
+            search: search,
+            region: region,
+
+        })
+    }
+
 
     return (
         <div className="vacanciesSidebarFilter">
@@ -54,7 +98,11 @@ const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
                 >
                     {region}
                     <input  type="radio" name="radio"
-                           onClick={() => dispatch(addRegion(region))}
+                            onClick={() => serSearchParams({
+                                search: search,
+                                category: category,
+
+                            })}
                            defaultChecked={region !== ""}
                     />
                     <div className="control_indicator"></div>
@@ -67,7 +115,7 @@ const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
                             {item.title.region}
                                 <input type="radio" name="radio"
                                        defaultChecked={item.title.region === region}
-                                       onClick={() => dispatch(addRegion(item.title.region))}
+                                       onClick={() => getRegion(item.title.region)}
                                 />
                             <div className="control_indicator"></div>
                         </label>
@@ -83,7 +131,11 @@ const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
                 >
                     {category}
                     <input  type="radio" name="radio"
-                           onClick={() => dispatch(addCategory(category))}
+                            onClick={() => serSearchParams({
+                                search: search,
+                                region: region,
+
+                            })}
                            defaultChecked={category !== ""}
                     />
                     <div className="control_indicator"></div>
@@ -95,14 +147,13 @@ const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
                         >
                             {item.title}
                             <input  type="radio" name="radio"
-                                   onClick={() => dispatch(addCategory(item.title))}
+                                   onClick={() => getCategory(item.title)}
                                    defaultChecked={item.title === category}
                             />
                             <div className="control_indicator"></div>
                         </label>
                     )
                 }
-
             </div>
         </div>
     );
