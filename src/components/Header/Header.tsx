@@ -12,16 +12,24 @@ const Header = () => {
 
     const region = searchParams.get('region') || ""
     const category = searchParams.get('category') || ""
-    const debounced = useDebounce(value) || searchParams.get('search') || ''
+  /*  const debounced = useDebounce(value)*/
     const navigate = useNavigate()
 
-
+    const onChangeInputValue = (value:string) =>{
+        if (location.pathname === "/vacancies") {
+            setSearchParams({
+                search:value,
+                region:region,
+                category:category,
+            })
+        }
+        setValue(value)
+    }
     const handleSubmit = () => {
         let params = searchParams.toString()
         if (location.pathname === "/vacancies") {
-            searchParams.append("search", debounced);
             setSearchParams({
-                search:debounced,
+                search:value,
                 region:region,
                 category:category,
             })
@@ -30,7 +38,7 @@ const Header = () => {
         if (location.pathname !== "/vacancies") {
             navigate({
                 pathname: '/vacancies',
-                search: `?search=${debounced}`
+                search: `?search=${value}`
             })
         }
     }
@@ -48,7 +56,7 @@ const Header = () => {
             </div>
             <div className="header__main">
                 <div className="header__search">
-                    <input type="search" placeholder={'🔍︎'} value={value} onChange={(e) => setValue(e.target.value)}/>
+                    <input type="search" placeholder={'🔍︎'} value={value} onChange={(e) => onChangeInputValue(e.target.value)}/>
                     <button className="header__search__btn" onClick={handleSubmit}>🔍︎</button>
                 </div>
                 <button className='header__button'>

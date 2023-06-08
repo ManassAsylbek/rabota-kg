@@ -11,7 +11,6 @@ interface IFilterVacancies{
     modalClose: boolean
 }
 
-
 const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
 
     const [windowOpenFilter, setWindowOpenFilter] = useState(false)
@@ -103,7 +102,7 @@ const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
                                 category: category,
 
                             })}
-                           defaultChecked={region !== ""}
+                           defaultChecked={region !== "" || false}
                     />
                     <div className="control_indicator"></div>
                 </label>}
@@ -114,7 +113,7 @@ const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
                         >
                             {item.title.region}
                                 <input type="radio" name="radio"
-                                       defaultChecked={item.title.region === region}
+                                       defaultChecked={item.title.region === region || false}
                                        onClick={() => getRegion(item.title.region)}
                                 />
                             <div className="control_indicator"></div>

@@ -1,36 +1,34 @@
 import React, {useEffect, useState} from 'react';
 
-
 import "./FoundVacancies.scss"
 
-import {NavLink, useParams, useSearchParams} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 import {useFetchAllVacancyQuery} from "../../sevices/vacanciesServices";
 import ItemVacancies from "./ItemVacancies";
 import {useGetRegionQuery} from "../../sevices/regionServices";
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {useFetchVacancyCategoryQuery} from "../../sevices/vacancyCategoryServices";
-import {IVacancyParams} from "../../interfaces";
+
 import FilterVacancies from "./FilterVacancies";
 import {createPortal} from "react-dom";
 import Modal from "../Layout/Modal/Modal";
+import {useDebounce} from "../../hooks/debounce";
 
 const FoundVacancies = () => {
     const [searchParams, serSearchParams] = useSearchParams();
     const search = searchParams.get('search') || ""
     const region = searchParams.get('region') || ""
     const category = searchParams.get('category') || ""
+    const debouncedSearch = useDebounce(search)
 
-
-    const [windowOpenFilter, setWindowOpenFilter] = useState(false)
-
-    const dispatch = useAppDispatch();
-    const {data: vacancy} = useFetchAllVacancyQuery({search: search, vacancy_category: category, region: region})
+    const {data: vacancy, isFetching} = useFetchAllVacancyQuery({
+        search: debouncedSearch,
+        vacancy_category: category,
+        region: region
+    })
     const {data: type = []} = useFetchVacancyCategoryQuery()
     const {data: regions} = useGetRegionQuery()
 
     const [close, setClose] = useState(false)
-
-
 
 
     useEffect(() => {
@@ -54,6 +52,7 @@ const FoundVacancies = () => {
 
                 <div className="vacanciesSidebar">
                     <FilterVacancies modalClose={false}/>
+
                     {createPortal(
                         <div className="filterModal">
                             <button className="filterButton" onClick={() => {
@@ -70,7 +69,8 @@ const FoundVacancies = () => {
                                             document.body.style.overflow = 'auto';
                                             setClose(false)
                                         }
-                                        }>✖</button>
+                                        }>✖
+                                        </button>
                                     </div>
                                 </Modal>
                             }
@@ -78,6 +78,9 @@ const FoundVacancies = () => {
                     )}
 
                     <div className="vacanciesSidebarContent">
+                        {
+                            isFetching && <div>Загрузка</div>
+                        }
                         {
                             vacancy && vacancy.map(item => <ItemVacancies key={item.id} data={item}/>)
                         }
