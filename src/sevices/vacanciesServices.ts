@@ -16,7 +16,7 @@ export const vacancyAPI = createApi({
             }),
             providesTags:(result,error,arg) =>['Vacancy']
         }),
-        fetchVacancy: build.query<vacancyType[], number>({
+        fetchVacancy: build.query<vacancyType, number>({
             query: (id) => ({
                 url: `/vacancy/${id}`,
             }),

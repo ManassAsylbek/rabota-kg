@@ -19,7 +19,7 @@ const FoundVacancies = () => {
 
     const [windowOpenFilter, setWindowOpenFilter] = useState(false)
 
-    const {data: vacancy, isFetching} = useFetchAllVacancyQuery({
+    const {data: vacancy, isFetching,refetch} = useFetchAllVacancyQuery({
         search: debouncedSearch,
         vacancy_category: category,
         region: region
@@ -116,11 +116,7 @@ const FoundVacancies = () => {
                                 </div>
                                 После 18ти
                             </label>
-                           {/* <label className="control control-checkbox">
-                                До 18-ти
-                                <input type="checkbox"/>
-                                <div className="control_indicator"></div>
-                            </label>*/}
+
                         </div>
                         <div className="filter">
                             <div className="filterTitle" onClick={() => setRegionShow(!regionShow)}>
@@ -212,7 +208,7 @@ const FoundVacancies = () => {
                             isFetching && <div>Загрузка</div>
                         }
                         {
-                            vacancy && vacancy.map(item => <ItemVacancies key={item.id} data={item}/>)
+                            vacancy && vacancy.map(item => <ItemVacancies refetch={refetch} key={item.id} data={item}/>)
                         }
 
                     </div>
