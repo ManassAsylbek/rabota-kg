@@ -116,13 +116,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(180deg, #B55822 0%, #854E19 100%);
+    background: #DA6100;
     border-radius: 15px;
-
-
     font-weight: 900;
     font-size: 45px;
     line-height: 54px;
     color: #F5F5F5;
+    transition: 0.3s;
+    &:hover{
+      color: white;
+      background: #f16b02;
+      transition: 0.3s;
+      box-shadow: 0 0 15px 2px #f16b02;
+    }
   }
+
+
 }
