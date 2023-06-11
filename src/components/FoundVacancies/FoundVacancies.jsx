@@ -349,5 +349,3 @@ const FoundVacancies = () => {
         </section>
     );
 };
-
-export default FoundVacancies;
