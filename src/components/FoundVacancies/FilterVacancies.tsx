@@ -82,7 +82,7 @@ const FilterVacancies: FC<IFilterVacancies> = ({ modalClose }) => {
                     Возраст
                 </div>
                 <label className="control control-checkbox"
-                    onClick={() => setBeforeEighteen(!beforeEighteen)}>
+                       onClick={() => setBeforeEighteen(!beforeEighteen)}>
                     <div className={beforeEighteen
                         ? "control-checkbox__check "
                         : "control-checkbox__check__before"}
@@ -97,7 +97,7 @@ const FilterVacancies: FC<IFilterVacancies> = ({ modalClose }) => {
 
                 </label>
                 <label className="control control-checkbox"
-                    onClick={() => setAfterEighteen(!afterEighteen)}>
+                       onClick={() => setAfterEighteen(!afterEighteen)}>
                     <div className={afterEighteen
                         ? "control-checkbox__check "
                         : "control-checkbox__check__before"}
@@ -121,11 +121,11 @@ const FilterVacancies: FC<IFilterVacancies> = ({ modalClose }) => {
                     Регион
                 </div>
                 {!regionShow && region && <label className="control control-checkbox"
-                    onClick={() => serSearchParams({
-                        search: search,
-                        category: category,
+                                                 onClick={() => serSearchParams({
+                                                     search: search,
+                                                     category: category,
 
-                    })}
+                                                 })}
                 >
                     <div className={"control-checkbox__check"}
                     >
@@ -140,7 +140,7 @@ const FilterVacancies: FC<IFilterVacancies> = ({ modalClose }) => {
                 {
                     regionShow && regions && regions.map(item =>
                         <label className="control control-checkbox" key={item.title.region}
-                            onClick={() => getRegion(item.title.region)}
+                               onClick={() => getRegion(item.title.region)}
                         >
                             <div className={item.title.region === region
                                 ? "control-checkbox__check "
@@ -164,11 +164,11 @@ const FilterVacancies: FC<IFilterVacancies> = ({ modalClose }) => {
                     Отрасли
                 </div>
                 {!typeShow && category && <label className="control control-checkbox"
-                    onClick={() => serSearchParams({
-                        search: search,
-                        region: region,
+                                                 onClick={() => serSearchParams({
+                                                     search: search,
+                                                     region: region,
 
-                    })}>
+                                                 })}>
                     <div className={"control-checkbox__check"}
                     >
                         {
@@ -181,7 +181,7 @@ const FilterVacancies: FC<IFilterVacancies> = ({ modalClose }) => {
                 {
                     typeShow && type && type.map(item =>
                         <label className="control control-checkbox" key={item.title}
-                            onClick={() => getCategory(item.title)}
+                               onClick={() => getCategory(item.title)}
                         >
                             <div className={item.title === category
                                 ? "control-checkbox__check "
