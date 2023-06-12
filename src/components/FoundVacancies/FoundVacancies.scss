@@ -300,7 +300,8 @@ $border-color_1: #7b7b7b;
   display: flex;
 
   .vacanciesSidebarContent {
-    width: 75%;
+    margin-left: auto;
+    width: 70%;
 
     .vacanciesBox {
       padding: 20px 30px;
@@ -395,7 +396,7 @@ $border-color_1: #7b7b7b;
           justify-content: right;
           align-items: center;
 
-          .watch, .likes {
+          .watch {
             display: flex;
             align-items: center;
 

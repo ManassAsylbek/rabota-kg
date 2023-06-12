@@ -4,6 +4,7 @@ import FooterIcon from './../../assets/icons/footerlogo.png';
 import WhatsappLogo from './../../assets/icons/whatsapp.svg';
 import TiktokLogo from './../../assets/icons/tiktok.svg';
 import InstLogo from './../../assets/icons/inst.svg';
+import TelegramLogo from './../../assets/icons8-telegram.svg';
 
 const Footer=()=>{
     return(
@@ -37,6 +38,11 @@ const Footer=()=>{
 
                             <img src={InstLogo} alt="inst" />
                             <p>Instagram</p>
+
+                        </a>
+                        <a href='#' className="footer__contact__media-item">
+                            <img src={TelegramLogo} alt="telegram" />
+                            <p>Telegram</p>
 
                         </a>
                     </div>

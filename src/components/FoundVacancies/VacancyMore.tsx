@@ -25,12 +25,18 @@ const VacancyMore: FC<IVacancyMore> = ({data, setMore, refetch}) => {
             </div>
             <div className={"vacancyTextTitle"}>Требования:</div>
             <ul className={"vacancyText"}>
+                {/*{data.requirements.split(';').map((item, idx) => (*/}
+                {/*    <li key={idx}>{item};</li>*/}
+                {/*))}*/}
                 <li>
                     {data.requirements}
                 </li>
             </ul>
             <div className={"vacancyTextTitle "}>Обязанности:
                 <ul className={"vacancyText"}>
+                    {/*{data.responsibilities.split(';').map((item, idx) => (*/}
+                    {/*    <li key={idx}>{item};</li>*/}
+                    {/*))}*/}
                     <li>
                         {data.responsibilities}
                     </li>

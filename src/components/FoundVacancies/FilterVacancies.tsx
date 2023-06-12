@@ -1,10 +1,10 @@
-import React, { FC, useState } from 'react';
-import { addCategory, addRegion } from "../../store/searchSlice";
-import { useParams, useSearchParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { useFetchAllVacancyQuery } from "../../sevices/vacanciesServices";
-import { useFetchVacancyCategoryQuery } from "../../sevices/vacancyCategoryServices";
-import { useGetRegionQuery } from "../../sevices/regionServices";
+import React, {FC, useState} from 'react';
+import {addCategory, addRegion} from "../../store/searchSlice";
+import {useParams, useSearchParams} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {useFetchAllVacancyQuery} from "../../sevices/vacanciesServices";
+import {useFetchVacancyCategoryQuery} from "../../sevices/vacancyCategoryServices";
+import {useGetRegionQuery} from "../../sevices/regionServices";
 import check from "../../assets/icons/check.svg"
 
 
@@ -12,7 +12,7 @@ interface IFilterVacancies {
     modalClose: boolean
 }
 
-const FilterVacancies: FC<IFilterVacancies> = ({ modalClose }) => {
+const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
 
     const [windowOpenFilter, setWindowOpenFilter] = useState(false)
 
@@ -31,9 +31,9 @@ const FilterVacancies: FC<IFilterVacancies> = ({ modalClose }) => {
 
 
     const dispatch = useAppDispatch();
-    const { data: vacancy } = useFetchAllVacancyQuery({ search: search, vacancy_category: category, region: region })
-    const { data: type = [] } = useFetchVacancyCategoryQuery()
-    const { data: regions } = useGetRegionQuery()
+    const {data: vacancy} = useFetchAllVacancyQuery({search: search, vacancy_category: category, region: region})
+    const {data: type = []} = useFetchVacancyCategoryQuery()
+    const {data: regions} = useGetRegionQuery()
 
 
     const [regionShow, setRegionShow] = useState(modalClose)
@@ -65,9 +65,21 @@ const FilterVacancies: FC<IFilterVacancies> = ({ modalClose }) => {
         else serSearchParams({
             search: search,
             region: region,
-
         })
     }
+    // const getAge = (params: string) => {
+    //     if (params !== category)
+    //         serSearchParams({
+    //             search: search,
+    //             region: region,
+    //             category: params,
+    //
+    //         })
+    //     else serSearchParams({
+    //         search: search,
+    //         region: region,
+    //     })
+    // }
 
 
     return (
@@ -88,13 +100,11 @@ const FilterVacancies: FC<IFilterVacancies> = ({ modalClose }) => {
                         : "control-checkbox__check__before"}
                     >
                         {beforeEighteen
-                            ? <img src={check} alt="" />
+                            ? <img src={check} alt=""/>
                             : ""
                         }
-
                     </div>
                     До 18-ти
-
                 </label>
                 <label className="control control-checkbox"
                        onClick={() => setAfterEighteen(!afterEighteen)}>
@@ -103,18 +113,12 @@ const FilterVacancies: FC<IFilterVacancies> = ({ modalClose }) => {
                         : "control-checkbox__check__before"}
                     >
                         {afterEighteen
-                            ? <img src={check} alt="" />
+                            ? <img src={check} alt=""/>
                             : ""
                         }
-
                     </div>
                     После 18ти
                 </label>
-                {/* <label className="control control-checkbox">
-                                До 18-ти
-                                <input type="checkbox"/>
-                                <div className="control_indicator"></div>
-                            </label>*/}
             </div>
             <div className="filter">
                 <div className="filterTitle" onClick={() => setRegionShow(!regionShow)}>
@@ -130,7 +134,7 @@ const FilterVacancies: FC<IFilterVacancies> = ({ modalClose }) => {
                     <div className={"control-checkbox__check"}
                     >
                         {
-                            <img src={check} alt="" />
+                            <img src={check} alt=""/>
                         }
 
                     </div>
@@ -148,7 +152,7 @@ const FilterVacancies: FC<IFilterVacancies> = ({ modalClose }) => {
                             >
                                 {
                                     item.title.region === region
-                                        ? <img src={check} alt="" />
+                                        ? <img src={check} alt=""/>
                                         : ""
                                 }
 
@@ -163,20 +167,21 @@ const FilterVacancies: FC<IFilterVacancies> = ({ modalClose }) => {
                 <div className="filterTitle" onClick={() => setTypeShow(!typeShow)}>
                     Отрасли
                 </div>
-                {!typeShow && category && <label className="control control-checkbox"
-                                                 onClick={() => serSearchParams({
-                                                     search: search,
-                                                     region: region,
+                {!typeShow && category &&
+                    <label className="control control-checkbox"
+                           onClick={() => serSearchParams({
+                               search: search,
+                               region: region,
 
-                                                 })}>
-                    <div className={"control-checkbox__check"}
-                    >
-                        {
-                            <img src={check} alt="" />
-                        }
-                    </div>
-                    {category}
-                </label>}
+                           })}>
+                        <div className={"control-checkbox__check"}
+                        >
+                            {
+                                <img src={check} alt=""/>
+                            }
+                        </div>
+                        {category}
+                    </label>}
 
                 {
                     typeShow && type && type.map(item =>
@@ -189,7 +194,7 @@ const FilterVacancies: FC<IFilterVacancies> = ({ modalClose }) => {
                             >
                                 {
                                     item.title === category
-                                        ? <img src={check} alt="" />
+                                        ? <img src={check} alt=""/>
                                         : ""
                                 }
 
