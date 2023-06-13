@@ -79,6 +79,12 @@
   .header {
     min-height: 300px;
   }
+  .header__search input {
+    border-radius: 10px 0 0 10px;
+  }
+  .header__search__btn{
+    border-radius: 0 10px 10px 0;
+  }
   .header__header {
     font-size: 10px;
     padding-top: 0;

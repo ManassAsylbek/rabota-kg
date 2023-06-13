@@ -1,75 +1,46 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import HeaderLogo from '../../assets/icons/headerlogo.svg';
 import './Header.scss';
 import './Header-media.scss';
 import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
-import {useDebounce} from "../../hooks/debounce";
 
 const Header = () => {
-    const [searchParams,setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const [value, setValue] = useState(searchParams.get('search') || "")
-    let location = useLocation()
-    const debounced = useDebounce(value)
-
     const region = searchParams.get('region') || ""
     const category = searchParams.get('category') || ""
+    let location = useLocation()
 
     const navigate = useNavigate()
 
-    const onChangeInputValue = (debounced:string) =>{
-        if (location.pathname === "/vacancies") {
-            setSearchParams({
-                search:debounced,
-                region:region,
-                category:category,
-            })
-        }
-        setValue(debounced)
-    }
     const handleSubmit = () => {
-        let params = searchParams.toString()
         if (location.pathname === "/vacancies") {
             setSearchParams({
-                search:value,
-                region:region,
-                category:category,
-            })
+                region,
+                category,
+                search: value,
+            });
         }
 
         if (location.pathname !== "/vacancies") {
             navigate({
                 pathname: '/vacancies',
-                search: `?search=${value}`
-            })
+                search: `?search=${value}`,
+            });
         }
-    }
-    const handleSubmitEnter  = (event: any) => {
-        if (event.key ===  "Enter"){
-            let params = searchParams.toString()
-            if (location.pathname === "/vacancies") {
-                setSearchParams({
-                    search:value,
-                    region:region,
-                    category:category,
-                })
-            }
+    };
 
-            if (location.pathname !== "/vacancies") {
-                navigate({
-                    pathname: '/vacancies',
-                    search: `?search=${value}`
-                })
-            }
+
+    const handleSubmitEnter = (event: any) => {
+        if (event.key === 'Enter') {
+            handleSubmit();
         }
     }
 
     function aboutScroll() {
         const targetElement = document.getElementById('AboutUs');
         if (targetElement) {
-            window.scrollTo({
-                top: targetElement.offsetTop,
-                behavior: 'smooth',
-            });
+            targetElement.scrollIntoView({behavior: 'smooth'});
         }
     }
 
@@ -91,7 +62,8 @@ const Header = () => {
             </div>
             <div className="header__main">
                 <div className="header__search">
-                    <input type="search" placeholder={'Введите вакансию, город или отрасль'} value={value} onChange={(e) => setValue(e.target.value)} onKeyDown={(e) => handleSubmitEnter(e)}/>
+                    <input type="search" placeholder={'Введите вакансию, город или отрасль'} value={value}
+                           onChange={(e) => setValue(e.target.value)} onKeyDown={(e) => handleSubmitEnter(e)}/>
                     <button className="header__search__btn" onClick={handleSubmit}>🔍︎</button>
                 </div>
                 <a className='header__button' href={whatsAppLink}>

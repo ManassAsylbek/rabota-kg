@@ -1,7 +1,5 @@
 import React, {FC, useState} from 'react';
-import {addCategory, addRegion} from "../../store/searchSlice";
-import {useParams, useSearchParams} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import { useSearchParams} from "react-router-dom";
 import {useFetchAllVacancyQuery} from "../../sevices/vacanciesServices";
 import {useFetchVacancyCategoryQuery} from "../../sevices/vacancyCategoryServices";
 import {useGetRegionQuery} from "../../sevices/regionServices";
@@ -14,23 +12,12 @@ interface IFilterVacancies {
 
 const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
 
-    const [windowOpenFilter, setWindowOpenFilter] = useState(false)
-
-    // const {search} = useParams()
-    // const dispatch = useAppDispatch();
-    // const {region, category} = useAppSelector(state => state.searchSlice);
-    // const {data: vacancy} = useFetchAllVacancyQuery({search: search, vacancy_category: category, region: region})
-    // const {data: type = [], error, isLoading} = useFetchVacancyCategoryQuery()
-    // const {data: regions} = useGetRegionQuery()
-
-
     const [searchParams, serSearchParams] = useSearchParams();
     const search = searchParams.get('search') || ""
     const region = searchParams.get('region') || ""
     const category = searchParams.get('category') || ""
 
 
-    const dispatch = useAppDispatch();
     const {data: vacancy} = useFetchAllVacancyQuery({search: search, vacancy_category: category, region: region})
     const {data: type = []} = useFetchVacancyCategoryQuery()
     const {data: regions} = useGetRegionQuery()
@@ -42,45 +29,24 @@ const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
     const [afterEighteen, setAfterEighteen] = useState(false)
 
     const getRegion = (params: string) => {
-        if (params !== region)
-            serSearchParams({
-                search: search,
-                region: params,
-                category: category,
+        const newSearchParams = {
+            search,
+            ...(params !== region && { region: params }),
+            category
+        };
 
-            })
-        else serSearchParams({
-            search: search,
-            category: category
-        })
-    }
+        serSearchParams(newSearchParams);
+    };
+
     const getCategory = (params: string) => {
-        if (params !== category)
-            serSearchParams({
-                search: search,
-                region: region,
-                category: params,
+        const newSearchParams = {
+            search,
+            region,
+            ...(params !== category && { category: params })
+        };
 
-            })
-        else serSearchParams({
-            search: search,
-            region: region,
-        })
-    }
-    // const getAge = (params: string) => {
-    //     if (params !== category)
-    //         serSearchParams({
-    //             search: search,
-    //             region: region,
-    //             category: params,
-    //
-    //         })
-    //     else serSearchParams({
-    //         search: search,
-    //         region: region,
-    //     })
-    // }
-
+        serSearchParams(newSearchParams);
+    };
 
     return (
         <div className="vacanciesSidebarFilter">

@@ -12,16 +12,13 @@ import VacancyMore from "./VacancyMore";
 interface ItemVacancies {
     data: vacancyType,
     refetch: () => void;
+
 }
 
 const ItemVacancies: FC<ItemVacancies> = ({data,refetch}) => {
     const [more, setMore] = useState(false)
     const formattedDate = format(new Date(data.published_at), 'dd.MM.yyyy');
     const distanceDate = formatDistance(new Date(data.published_at), new Date(), {addSuffix: true, locale: ru})
-
-    useEffect(()=>{},[more])
-
-
 
     return (
         <div className="vacanciesBox" key={data.id}>
