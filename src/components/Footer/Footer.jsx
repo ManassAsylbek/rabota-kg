@@ -22,25 +22,24 @@ const Footer=()=>{
                 <div className="footer__contact">
                     <h2>Как связаться с нами</h2>
                     <div className="footer__contact__media">
-                        <a href='#' className="footer__contact__media-item">
-
+                        <a href='https://wa.me/996709453480' className="footer__contact__media-item">
                             <img src={WhatsappLogo} alt="whatsapp" />
                             <p>WhatsApp</p>
 
                         </a>
-                        <a href='#' className="footer__contact__media-item">
+                        <a href='https://www.tiktok.com/@rabota_v_kgg?_t=8d9dkKe9Bs9&_r=1' className="footer__contact__media-item">
 
                             <img src={TiktokLogo} alt="tiktok" />
                             <p>TikTok</p>
 
                         </a>
-                        <a href='#' className="footer__contact__media-item">
+                        <a href='https://instagram.com/rabota_v_kg?igshid=NTc4MTIwNjQ2YQ==' className="footer__contact__media-item">
 
                             <img src={InstLogo} alt="inst" />
                             <p>Instagram</p>
 
                         </a>
-                        <a href='#' className="footer__contact__media-item">
+                        <a href='https://t.me/rabota_v_kg' className="footer__contact__media-item">
                             <img src={TelegramLogo} alt="telegram" />
                             <p>Telegram</p>
 
