@@ -12,10 +12,11 @@ interface IFilterVacancies {
 
 const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
 
-    const [searchParams, serSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const search = searchParams.get('search') || ""
     const region = searchParams.get('region') || ""
     const category = searchParams.get('category') || ""
+    const age = searchParams.get('age') || ""
 
 
     const {data: vacancy} = useFetchAllVacancyQuery({search: search, vacancy_category: category, region: region})
@@ -25,27 +26,40 @@ const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
 
     const [regionShow, setRegionShow] = useState(modalClose)
     const [typeShow, setTypeShow] = useState(modalClose)
-    const [beforeEighteen, setBeforeEighteen] = useState(false)
+    const [beforeEighteen, setBeforeEighteen] = useState(!!age)
     const [afterEighteen, setAfterEighteen] = useState(false)
 
+    const getAge = () => {
+        setBeforeEighteen(!beforeEighteen)
+        const newSearchParams = {
+            search,
+            region,
+            category,
+            ...("true" !== age && { age: "true" }),
+        };
+        setSearchParams(newSearchParams);
+
+    }
     const getRegion = (params: string) => {
         const newSearchParams = {
             search,
             ...(params !== region && { region: params }),
-            category
+            category,
+            age
         };
 
-        serSearchParams(newSearchParams);
+        setSearchParams(newSearchParams);
     };
 
     const getCategory = (params: string) => {
         const newSearchParams = {
             search,
             region,
+            age,
             ...(params !== category && { category: params })
         };
 
-        serSearchParams(newSearchParams);
+        setSearchParams(newSearchParams);
     };
 
     return (
@@ -60,7 +74,7 @@ const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
                     Возраст
                 </div>
                 <label className="control control-checkbox"
-                       onClick={() => setBeforeEighteen(!beforeEighteen)}>
+                       onClick={getAge}>
                     <div className={beforeEighteen
                         ? "control-checkbox__check "
                         : "control-checkbox__check__before"}
@@ -70,30 +84,19 @@ const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
                             : ""
                         }
                     </div>
-                    До 18-ти
+                    18+
                 </label>
-                <label className="control control-checkbox"
-                       onClick={() => setAfterEighteen(!afterEighteen)}>
-                    <div className={afterEighteen
-                        ? "control-checkbox__check "
-                        : "control-checkbox__check__before"}
-                    >
-                        {afterEighteen
-                            ? <img src={check} alt=""/>
-                            : ""
-                        }
-                    </div>
-                    После 18ти
-                </label>
+
             </div>
             <div className="filter">
                 <div className="filterTitle" onClick={() => setRegionShow(!regionShow)}>
                     Регион
                 </div>
                 {!regionShow && region && <label className="control control-checkbox"
-                                                 onClick={() => serSearchParams({
+                                                 onClick={() => setSearchParams({
                                                      search: search,
                                                      category: category,
+                                                     age:age
 
                                                  })}
                 >
@@ -135,9 +138,10 @@ const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
                 </div>
                 {!typeShow && category &&
                     <label className="control control-checkbox"
-                           onClick={() => serSearchParams({
+                           onClick={() => setSearchParams({
                                search: search,
                                region: region,
+                               age:age
 
                            })}>
                         <div className={"control-checkbox__check"}

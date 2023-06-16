@@ -20,6 +20,7 @@ const FoundVacancies = () => {
     const search = searchParams.get('search') || ""
     const region = searchParams.get('region') || ""
     const category = searchParams.get('category') || ""
+    const age = searchParams.get('age') || ""
     const debouncedSearch = useDebounce(search)
 
 
@@ -35,7 +36,7 @@ const FoundVacancies = () => {
     const [afterEighteen, setAfterEighteen] = useState(false)
     const [vacancyLength, setVacancyLength] = useState(vacancy?.length)
 
-
+    console.log(vacancy)
     useEffect(() => {
         const targetElement = document.getElementById('vacanciesScroll');
         if (targetElement) {
@@ -86,8 +87,9 @@ const FoundVacancies = () => {
                         {
                             isFetching && <div>Загрузка</div>
                         }
-                        {
-                            vacancy?.map(item => <ItemVacancies refetch={refetch} key={item.id} data={item}/>)
+                        {age
+                            ? vacancy?.filter(item=>item.is_18).map(item => <ItemVacancies refetch={refetch} key={item.id} data={item}/>)
+                            : vacancy?.map(item => <ItemVacancies refetch={refetch} key={item.id} data={item}/>)
                         }
                     </div>
                 </div>

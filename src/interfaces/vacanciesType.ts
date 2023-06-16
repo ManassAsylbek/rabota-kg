@@ -50,6 +50,7 @@ export interface vacancyType {
     "contact": string,
     "is_active": boolean
     "is_18": boolean
+    "top": boolean
 }
 
 

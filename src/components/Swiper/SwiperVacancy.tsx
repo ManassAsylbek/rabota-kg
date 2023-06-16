@@ -40,7 +40,7 @@ const SwiperVacancy = () => {
                 <Swiper pagination={pagination} className="mySwiper"
                         modules={[Pagination, Navigation, Mousewheel, Keyboard]}>
 
-                    {vacancies && vacancies.map((vacancy) =>
+                    {vacancies?.filter(item=>item.top).map((vacancy) =>
                         <SwiperSlide key={vacancy.id} className={"mySwiper__slide"}>
                             <SwiperContent vacancy={vacancy} more={more} setMore={setMore}/>
                         </SwiperSlide>
