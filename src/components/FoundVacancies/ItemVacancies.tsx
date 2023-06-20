@@ -12,7 +12,6 @@ import VacancyMore from "./VacancyMore";
 interface ItemVacancies {
     data: vacancyType,
     refetch: () => void;
-
 }
 
 const ItemVacancies: FC<ItemVacancies> = ({data,refetch}) => {

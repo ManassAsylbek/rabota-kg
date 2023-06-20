@@ -45,7 +45,7 @@ const Header = () => {
     }
 
 
-    const whatsAppMessage = "Здравствуте"
+    const whatsAppMessage = "Здравствуйте"
 
     const whatsAppLink = `https://wa.me/996709453480?text=${whatsAppMessage}`
 

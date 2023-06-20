@@ -12,8 +12,7 @@ import FilterVacancies from "./FilterVacancies";
 import {createPortal} from "react-dom";
 import Modal from "../Layout/Modal/Modal";
 import {useDebounce} from "../../hooks/debounce";
-import check from "../../assets/icons/check.svg";
-import {log} from "util";
+import {vacancyType} from "../../interfaces";
 
 const FoundVacancies = () => {
     const [searchParams, serSearchParams] = useSearchParams();
@@ -31,33 +30,45 @@ const FoundVacancies = () => {
     })
     const {data: type = []} = useFetchVacancyCategoryQuery()
     const {data: regions} = useGetRegionQuery()
-
     const [close, setClose] = useState(false)
-    const [afterEighteen, setAfterEighteen] = useState(false)
-    const [vacancyLength, setVacancyLength] = useState(vacancy?.length)
 
-    console.log(vacancy)
+    const [newData, setNewData] = useState<vacancyType[]>([])
+
+
     useEffect(() => {
         const targetElement = document.getElementById('vacanciesScroll');
         if (targetElement) {
             targetElement.scrollIntoView({behavior: 'smooth'});
         }
+
     }, []);
+
+    useEffect(() => {
+        const newDataFiltering = () => {
+            if (age === 'true') {
+                setNewData(vacancy?.filter(item => !item.is_18) || []);
+            } else if (age === 'false') {
+                setNewData(vacancy?.filter(item => item.is_18) || []);
+            } else {
+                setNewData(vacancy || []);
+            }
+        };
+
+        newDataFiltering();
+    }, [age, vacancy]);
+
 
     return (
         <section className="foundVacancies" id="vacanciesScroll">
             <div className="container">
+
                 <div className="foundVacanciesTitle">
-                    Найдено {vacancy ? vacancy.length : "0"} вакансии
+                    Найдено {newData ? newData.length : "0"} вакансии
                 </div>
                 <hr className="titleLine"/>
 
                 <div className="vacanciesSidebar">
-                    <div className="vacanciesSidebarFilter">
-
-                        <FilterVacancies modalClose={false}/>
-                    </div>
-
+                    <FilterVacancies modalClose={false}/>
                     {createPortal(
                         <div className="filterModal">
                             <button className="filterButton" onClick={() => {
@@ -87,10 +98,10 @@ const FoundVacancies = () => {
                         {
                             isFetching && <div>Загрузка</div>
                         }
-                        {age
-                            ? vacancy?.filter(item=>item.is_18).map(item => <ItemVacancies refetch={refetch} key={item.id} data={item}/>)
-                            : vacancy?.map(item => <ItemVacancies refetch={refetch} key={item.id} data={item}/>)
+                        {
+                            newData.map(item => <ItemVacancies refetch={refetch} key={item.id} data={item}/>)
                         }
+
                     </div>
                 </div>
             </div>

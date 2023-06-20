@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import { useSearchParams} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 import {useFetchAllVacancyQuery} from "../../sevices/vacanciesServices";
 import {useFetchVacancyCategoryQuery} from "../../sevices/vacancyCategoryServices";
 import {useGetRegionQuery} from "../../sevices/regionServices";
@@ -17,37 +17,40 @@ const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
     const region = searchParams.get('region') || ""
     const category = searchParams.get('category') || ""
     const age = searchParams.get('age') || ""
-
+    const params = new URLSearchParams(searchParams.toString());
 
     const {data: vacancy} = useFetchAllVacancyQuery({search: search, vacancy_category: category, region: region})
     const {data: type = []} = useFetchVacancyCategoryQuery()
     const {data: regions} = useGetRegionQuery()
-
-
     const [regionShow, setRegionShow] = useState(modalClose)
     const [typeShow, setTypeShow] = useState(modalClose)
-    const [beforeEighteen, setBeforeEighteen] = useState(!!age)
-    const [afterEighteen, setAfterEighteen] = useState(false)
 
-    const getAge = () => {
-        setBeforeEighteen(!beforeEighteen)
-        const newSearchParams = {
-            search,
-            region,
-            category,
-            ...("true" !== age && { age: "true" }),
-        };
-        setSearchParams(newSearchParams);
+    const getAge = (params: boolean, event: React.ChangeEvent<HTMLInputElement>) => {
+        let input = event.target.id
+        let radioInput = document.getElementById(input)
+
+            const newSearchParams = {
+                search,
+                region,
+                category,
+                ...params ? {age: 'true'} : {age: 'false'},
+            };
+            setSearchParams(newSearchParams);
 
     }
+
+    const handleRemoveAge = () => {
+        params.delete("age");
+        setSearchParams(params.toString());
+    };
+
     const getRegion = (params: string) => {
         const newSearchParams = {
             search,
-            ...(params !== region && { region: params }),
+            ...(params !== region && {region: params}),
             category,
             age
         };
-
         setSearchParams(newSearchParams);
     };
 
@@ -56,7 +59,7 @@ const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
             search,
             region,
             age,
-            ...(params !== category && { category: params })
+            ...(params !== category && {category: params})
         };
 
         setSearchParams(newSearchParams);
@@ -73,42 +76,50 @@ const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
                 <div className="filterTitle">
                     Возраст
                 </div>
-                <label className="control control-checkbox"
-                       onClick={getAge}>
-                    <div className={beforeEighteen
-                        ? "control-checkbox__check "
-                        : "control-checkbox__check__before"}
-                    >
-                        {beforeEighteen
-                            ? <img src={check} alt=""/>
-                            : ""
-                        }
-                    </div>
-                    18+
+                <label className="control control-radio"
+                >
+                    После 18
+                    <input type="radio" name="radio" id='afterEighteen'
+                           checked={age === 'false'}
+                           onChange={(e) => getAge(false, e)}
+
+                    />
+                    <div className="control_indicator"></div>
                 </label>
+                <label className="control control-radio"
+                >
+                    До 18
+                    <input type="radio" name="radio" id='beforeEighteen'
+                           checked={age === 'true'}
+                           onChange={(e) => getAge(true, e)
+                           }
+                    />
+                    <div className="control_indicator"></div>
+                </label>
+
+                <button className="deleteAgeBtn" onClick={handleRemoveAge}>Убрать возраст</button>
 
             </div>
             <div className="filter">
                 <div className="filterTitle" onClick={() => setRegionShow(!regionShow)}>
                     Регион
                 </div>
-                {!regionShow && region && <label className="control control-checkbox"
-                                                 onClick={() => setSearchParams({
-                                                     search: search,
-                                                     category: category,
-                                                     age:age
-
-                                                 })}
-                >
-                    <div className={"control-checkbox__check"}
+                {!regionShow && region &&
+                    <label className="control control-checkbox"
+                           onClick={() => setSearchParams({
+                               search: search,
+                               category: category,
+                               age: age
+                           })}
                     >
-                        {
-                            <img src={check} alt=""/>
-                        }
-
-                    </div>
-                    {region}
-                </label>}
+                        <div className={"control-checkbox__check"}
+                        >
+                            {
+                                <img src={check} alt=""/>
+                            }
+                        </div>
+                        {region}
+                    </label>}
 
                 {
                     regionShow && regions && regions.map(item =>
@@ -141,7 +152,7 @@ const FilterVacancies: FC<IFilterVacancies> = ({modalClose}) => {
                            onClick={() => setSearchParams({
                                search: search,
                                region: region,
-                               age:age
+                               age: age
 
                            })}>
                         <div className={"control-checkbox__check"}
