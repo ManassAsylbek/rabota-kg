@@ -16,6 +16,13 @@ export const vacancyAPI = createApi({
             }),
             providesTags:(result,error,arg) =>['Vacancy']
         }),
+        fetchTopVacancy: build.query<vacancyType[], IVacancyParams>({
+            query: (params) => ({
+                url: '/vacancy/top_vacancy',
+                params:params
+            }),
+            providesTags:(result,error,arg) =>['Vacancy']
+        }),
         fetchVacancy: build.query<vacancyType, number>({
             query: (id) => ({
                 url: `/vacancy/${id}`,
@@ -51,4 +58,4 @@ export const vacancyAPI = createApi({
 })
 
 
-export const {useFetchAllVacancyQuery,useFetchVacancyQuery,} = vacancyAPI;
+export const {useFetchAllVacancyQuery,useFetchVacancyQuery,useFetchTopVacancyQuery} = vacancyAPI;

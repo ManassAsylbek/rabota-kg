@@ -14,7 +14,7 @@ import SwiperButtonNext from "./SwiperButtonNext";
 import prev from "../../assets/icons/prev.svg"
 import next from "../../assets/icons/next.svg"
 import SwiperContent from "./SwiperContent";
-import {useFetchAllVacancyQuery} from "../../sevices/vacanciesServices";
+import {useFetchTopVacancyQuery} from "../../sevices/vacanciesServices";
 
 const SwiperContext = createContext(false)
 export {SwiperContext}
@@ -22,7 +22,7 @@ export {SwiperContext}
 const SwiperVacancy = () => {
     const [more, setMore] = useState(false)
 
-    const {data: vacancies = [], error, isLoading} =useFetchAllVacancyQuery({})
+    const {data: vacancies = [], error, isLoading} =useFetchTopVacancyQuery({})
 
     const pagination = {
         clickable: true,
@@ -40,7 +40,7 @@ const SwiperVacancy = () => {
                 <Swiper pagination={pagination} className="mySwiper"
                         modules={[Pagination, Navigation, Mousewheel, Keyboard]}>
 
-                    {vacancies?.filter(item=>item.top).map((vacancy) =>
+                    {vacancies?.map((vacancy) =>
                         <SwiperSlide key={vacancy.id} className={"mySwiper__slide"}>
                             <SwiperContent vacancy={vacancy} more={more} setMore={setMore}/>
                         </SwiperSlide>

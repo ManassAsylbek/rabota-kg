@@ -48,11 +48,16 @@ const SwiperContent: React.FC<ISwiperContent> = ({vacancy,more, setMore}) => {
                     </div>
                     <div className={"mySwiper__title margin"}>Требования:</div>
                     <ul className={"mySwiper__text"}>
-                        {vacancy.requirements}
+                        {vacancy.requirements.split('\r\n').map((item, idx) => (
+                            <li key={idx}>-{item}</li>
+                        ))}
                     </ul>
+
                     <div className={"mySwiper__title margin"}>Обязанности:
                         <ul className={"mySwiper__text"}>
-                            {vacancy.responsibilities}
+                            {vacancy.responsibilities.split('\r\n').map((item, idx) => (
+                                <li key={idx}>-{item}</li>
+                            ))}
                         </ul>
                     </div>
                 </div>
